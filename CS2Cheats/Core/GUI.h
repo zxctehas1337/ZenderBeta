@@ -38,7 +38,9 @@ namespace GUI
 	// ########################################
 	void AlignRight(float ContentWidth)
 	{
-		ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetColumnWidth() - ContentWidth - ImGui::GetStyle().ItemSpacing.x);
+		float availWidth = ImGui::GetContentRegionAvail().x;
+		float targetX = ImGui::GetCursorPosX() + availWidth - ContentWidth - ImGui::GetStyle().ItemSpacing.x;
+		ImGui::SetCursorPosX(ImMax(ImGui::GetCursorPosX(), targetX));
 	}
 	void PutSwitch(const char* string, float CursorX, float ContentWidth, bool* v, bool ColorEditor = false, const char* lable = NULL, float col[4] = NULL, const char* Tip = NULL)
 	{
@@ -48,13 +50,13 @@ namespace GUI
 		float availWidth = ImGui::GetContentRegionAvail().x;
 		
 		// Ограничиваем ContentWidth, чтобы избежать выхода за границы
-		ContentWidth = ImMin(ContentWidth, availWidth * 0.3f);
+		ContentWidth = ImMin(ContentWidth, availWidth * 0.25f);
 		
 		float CurrentCursorX = ImGui::GetCursorPosX();
 		float CurrentCursorY = ImGui::GetCursorPosY();
 		
 		// Ограничиваем CursorX, чтобы текст не выходил за границы
-		CursorX = ImMin(CursorX, availWidth * 0.5f);
+		CursorX = ImMin(CursorX, availWidth * 0.4f);
 		ImGui::SetCursorPosX(CurrentCursorX + CursorX);
 		
 		// Отображаем текст с ограничением длины, если необходимо
@@ -68,7 +70,7 @@ namespace GUI
 		
 		if (ColorEditor) {
 			// Ограничиваем ширину для цветового редактора
-			float colorEditWidth = ImMin(ContentWidth + ImGui::GetFrameHeight() + 7, availWidth * 0.4f);
+			float colorEditWidth = ImMin(ContentWidth + ImGui::GetFrameHeight() + 7, availWidth * 0.35f);
 			AlignRight(colorEditWidth);
 			ImGui::ColorEdit4(lable, col, ImGuiColorEditFlags_NoInputs | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_AlphaPreview);
 			ImGui::SameLine();
@@ -88,8 +90,8 @@ namespace GUI
 		float availWidth = ImGui::GetContentRegionAvail().x;
 		
 		// Ограничиваем CursorX и ContentWidth
-		CursorX = ImMin(CursorX, availWidth * 0.3f);
-		ContentWidth = ImMin(ContentWidth, availWidth * 0.4f);
+		CursorX = ImMin(CursorX, availWidth * 0.25f);
+		ContentWidth = ImMin(ContentWidth, availWidth * 0.35f);
 		
 		float CurrentCursorX = ImGui::GetCursorPosX();
 		ImGui::SetCursorPosX(CurrentCursorX + CursorX);
@@ -103,7 +105,7 @@ namespace GUI
 		ImGui::SameLine();
 		
 		// Ограничиваем ширину цветового редактора
-		float colorEditWidth = ImMin(ContentWidth + ImGui::GetFrameHeight() + 8, availWidth * 0.5f);
+		float colorEditWidth = ImMin(ContentWidth + ImGui::GetFrameHeight() + 8, availWidth * 0.4f);
 		AlignRight(colorEditWidth);
 		
 		// Используем упрощенный режим для цветового редактора
@@ -120,12 +122,13 @@ namespace GUI
 		float availWidth = ImGui::GetContentRegionAvail().x;
 		
 		// Ограничиваем CursorX
-		CursorX = ImMin(CursorX, availWidth * 0.3f);
+		CursorX = ImMin(CursorX, availWidth * 0.25f);
 		
 		float CurrentCursorX = ImGui::GetCursorPosX();
 		
 		// Рассчитываем ширину слайдера с ограничением
-		float SliderWidth = ImMin(availWidth - CursorX - 30, availWidth * 0.6f);
+		float SliderWidth = ImMin(availWidth - CursorX - 50, availWidth * 0.5f);
+		SliderWidth = ImMax(SliderWidth, 50.0f); // Минимальная ширина слайдера
 		
 		// Устанавливаем позицию для текста
 		ImGui::SetCursorPosX(CurrentCursorX + CursorX);
@@ -160,12 +163,13 @@ namespace GUI
     float availWidth = ImGui::GetContentRegionAvail().x;
     
     // Ограничиваем CursorX
-    CursorX = ImMin(CursorX, availWidth * 0.3f);
+    CursorX = ImMin(CursorX, availWidth * 0.25f);
     
     float CurrentCursorX = ImGui::GetCursorPosX();
     
     // Рассчитываем ширину слайдера с ограничением
-    float SliderWidth = ImMin(availWidth - CursorX - 30, availWidth * 0.6f);
+    float SliderWidth = ImMin(availWidth - CursorX - 50, availWidth * 0.5f);
+    SliderWidth = ImMax(SliderWidth, 50.0f); // Минимальная ширина слайдера
     
     // Устанавливаем позицию для текста
     ImGui::SetCursorPosX(CurrentCursorX + CursorX);

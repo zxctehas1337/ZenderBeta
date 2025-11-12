@@ -90,14 +90,15 @@ namespace OSImGui
         if (clicked)
             *v = !(*v);
         
-        // Animation - use simple animation without map
-        static float t = *v ? 1.0f : 0.0f;
+        // Animation - use static map to store per-button animation state
+        static std::map<ImGuiID, float> animationStates;
+        float& t = animationStates[id];
         float targetT = *v ? 1.0f : 0.0f;
         
         // Smooth animation
         if (t != targetT)
         {
-            float AnimationSpeed = ImGui::GetIO().DeltaTime * 4.0f; // Adjust speed
+            float AnimationSpeed = ImGui::GetIO().DeltaTime * 4.0f;
             t = t < targetT ? ImMin(t + AnimationSpeed, targetT) : ImMax(t - AnimationSpeed, targetT);
         }
         
