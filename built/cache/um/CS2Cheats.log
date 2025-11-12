@@ -1,0 +1,154 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: каталог Intermediate заканчивается не косой чертой.  Этот экземпляр сборки добавит косую черту, поскольку она необходима для правильного определения каталога Intermediate.
+  ConfigMenu.cpp
+C:\4часть\CS2Cheats\Config\ConfigMenu.cpp(56,96): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  Cheats.cpp
+C:\4часть\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\Render.h(134,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\Render.h(134,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\Render.h(135,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\Render.h(135,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(258,73): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(279,71): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(282,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(290,75): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(291,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(292,81): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(296,77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(297,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(298,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(299,55): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(301,69): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(303,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(304,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(305,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(324,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(333,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(334,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(350,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(351,64): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(360,61): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(361,63): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(362,68): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(386,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(395,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(396,58): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(397,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(441,77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(455,56): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(456,55): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(457,57): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(458,54): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(459,63): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(466,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(467,61): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(468,56): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(469,58): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(476,57): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(477,57): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(478,61): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(512,64): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Core\GUI.h(513,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Features\SpectatorList.h(64,58): warning C4244: аргумент: преобразование "uintptr_t" в "uint32_t", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\4часть\CS2Cheats\Features\SoundESP.h(39,83): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+  Создание кода
+  2 of 7570 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    60 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  CS2Cheats.vcxproj -> C:\4часть\built\CS2Cheats.exe

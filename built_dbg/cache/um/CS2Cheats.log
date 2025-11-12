@@ -1,0 +1,195 @@
+﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: каталог Intermediate заканчивается не косой чертой.  Этот экземпляр сборки добавит косую черту, поскольку она необходима для правильного определения каталога Intermediate.
+  ConfigMenu.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigMenu.cpp(56,96): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  ConfigSaver.cpp
+  Cheats.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(134,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(134,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Aimbot.h(270,27): warning C4244: инициализация: преобразование "ULONGLONG" в "DWORD", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(405,73): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(426,71): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(429,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(437,75): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(438,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(439,81): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(443,77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(444,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(445,74): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(446,55): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(448,69): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(450,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(451,78): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(452,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(471,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(480,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(481,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(497,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(498,64): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(507,61): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(508,63): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(509,68): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(533,63): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(534,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(535,63): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(536,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(537,61): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(570,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(571,67): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(572,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(582,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(629,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(643,58): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(646,66): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(666,76): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(675,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(676,58): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(677,59): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(721,77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(750,64): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI.h(751,60): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\SpectatorList.h(64,58): warning C4244: аргумент: преобразование "uintptr_t" в "uint32_t", возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\SoundESP.h(39,83): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+  (компиляция исходного файла "Core/Cheats.cpp")
+  
+  GlobalVars.cpp
+  Misc.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  (компиляция исходного файла "Features/Misc.cpp")
+  
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.cpp(804,15): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.cpp(805,13): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  Radar.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Radar.cpp(9,15): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Radar.cpp(72,20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  Bone.cpp
+  Entity.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Game\Entity.cpp(2,8): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Game\Entity.cpp(3,8): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
+  Game.cpp
+  Mouse.cpp
+  UIAccess.cpp
+  main.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+  Offsets.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\OS-ImGui\imgui\imgui_widgets.cpp(5786,48): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\OS-ImGui\imgui\imgui_widgets.cpp(5786,30): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+  Создание кода...
+  Компиляция...
+  OS-ImGui.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\OS-ImGui\OS-ImGui.cpp(71,36): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\OS-ImGui\OS-ImGui.cpp(71,29): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  OS-ImGui_Base.cpp
+  OS-ImGui_External.cpp
+  MemoryMgr.cpp
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\MemoryMgr.cpp(95,9): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\MemoryMgr.cpp(147,9): warning C4996: 'wcsncpy': This function or variable may be unsafe. Consider using wcsncpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  Создание кода...
+  CS2Cheats.vcxproj -> C:\Users\h7524\OneDrive\Рабочий стол\Zender\built_dbg\CS2Cheats.exe
