@@ -481,27 +481,10 @@ namespace GUI
 					ImGui::PopStyleColor();
 					ImGui::Spacing();
 					
-					PutSwitch("Water Mark", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::WaterMark);
 					PutSwitch("Sniper Crosshair", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::SniperCrosshair);
 					
 					ImGui::NextColumn();
 					
-					ImGui::SetCursorPosX(25.f);
-					ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-					ImGui::Text("SOUND");
-					ImGui::PopStyleColor();
-					ImGui::Spacing();
-					
-					ImGui::TextDisabled("Hit Sound");
-					ImGui::SetCursorPosX(15.f);
-					static const char* hitSoundItems[] = { "Off", "Default", "Metal", "Custom" };
-					ImGui::SetNextItemWidth(145.f);
-					ImGui::Combo("###HitSound", &MiscCFG::HitSound, hitSoundItems, IM_ARRAYSIZE(hitSoundItems));
-					
-					PutSwitch("Hit Marker", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::HitMarker);
-					PutSwitch("Fatality Sound", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::FatalitySound);
-					
-					ImGui::Spacing();
 					ImGui::SetCursorPosX(25.f);
 					ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
 					ImGui::Text("PROTECTION");
@@ -537,7 +520,7 @@ namespace GUI
 					PutSwitch("Enable Aimbot", 15.f, ImGui::GetFrameHeight() * 1.7, &AimbotCFG::AimbotEnabled);
 					PutSwitch("Silent Aim", 15.f, ImGui::GetFrameHeight() * 1.7, &AimbotCFG::SilentAim);
 					PutSwitch("Visible Check", 15.f, ImGui::GetFrameHeight() * 1.7, &AimbotCFG::VisibleCheck);
-					PutSwitch("Team Check", 15.f, ImGui::GetFrameHeight() * 1.7, &AimbotCFG::TeamCheck);
+					PutSwitch("Team Check", 15.f, ImGui::GetFrameHeight() * 1.7, &MenuConfig::TeamCheck);
 					PutSwitch("Toggle Mode", 15.f, ImGui::GetFrameHeight() * 1.7, &AimbotCFG::ToggleMode);
 					
 					// Aimbot key bind
@@ -603,10 +586,12 @@ namespace GUI
 					// FOV Radius with min/max limits
 					ImGui::TextDisabled("FOV Radius:");
 					ImGui::SameLine();
-					ImGui::TextDisabled("%.1f", AimbotCFG::FOVRadius);
+					char fovBuffer[32];
+					snprintf(fovBuffer, sizeof(fovBuffer), "%.1f", AimbotCFG::FOVRadius);
+					ImGui::TextDisabled("%s", fovBuffer);
 					ImGui::SetCursorPosX(15.f);
 					ImGui::SetNextItemWidth(ImGui::GetContentRegionAvail().x - 20);
-					Gui.SliderScalarEx2("", ImGuiDataType_Float, &AimbotCFG::FOVRadius, &AimbotCFG::FOVRadiusMin, &AimbotCFG::FOVRadiusMax, "", ImGuiSliderFlags_None);
+					Gui.SliderScalarEx2("###FOVRadius", ImGuiDataType_Float, &AimbotCFG::FOVRadius, &AimbotCFG::FOVRadiusMin, &AimbotCFG::FOVRadiusMax, "", ImGuiSliderFlags_None);
 					
 					ImGui::Spacing();
 					ImGui::SetCursorPosX(25.f);
@@ -722,24 +707,35 @@ namespace GUI
 					ImGui::PopStyleColor(2);
 					ImGui::PopStyleVar();
 					
-					PutSwitch(Text::Misc::TeamCheck.c_str(), 10.f, ImGui::GetFrameHeight() * 1.7, &MenuConfig::TeamCheck);
-				
-				ImGui::Columns(1);
-				
-				ImGui::Spacing();
-				ImGui::Spacing();
-				
-				// Styled exit cheat button
-				ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 6.0f);
-				ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.8f, 0.2f, 0.2f, 0.8f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(1.0f, 0.3f, 0.3f, 1.0f));
-				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.7f, 0.1f, 0.1f, 1.0f));
-				if (ImGui::Button("Exit Cheat", ImVec2(150.0f, 40.0f)))
-					Init::Client::Exit();
-				ImGui::PopStyleColor(3);
-				ImGui::PopStyleVar();
+					ImGui::Spacing();
+					ImGui::SetCursorPosX(CurrentCursorX + 15.f);
+					ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+					ImGui::Text("VISUAL");
+					ImGui::PopStyleColor();
+					ImGui::Spacing();
+					
+					PutSwitch("Water Mark", 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::WaterMark);
+					
+					ImGui::Spacing();
+					ImGui::SetCursorPosX(CurrentCursorX + 15.f);
+					ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+					ImGui::Text("SOUND");
+					ImGui::PopStyleColor();
+					ImGui::Spacing();
+					
+					ImGui::SetCursorPosX(CurrentCursorX + 10.f);
+					ImGui::TextDisabled("Hit Sound");
+					ImGui::SetCursorPosX(CurrentCursorX + 10.f);
+					static const char* hitSoundItems[] = { "Off", "Default", "Metal", "Custom" };
+					ImGui::SetNextItemWidth(145.f);
+					ImGui::Combo("###HitSound", &MiscCFG::HitSound, hitSoundItems, IM_ARRAYSIZE(hitSoundItems));
+					
+					PutSwitch("Hit Marker", 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::HitMarker);
+					PutSwitch("Fatality Sound", 10.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::FatalitySound);
+					
+					ImGui::Columns(1);
 				}
-
+				
 				// List Tab
 				if (activeTab == 4)
 				{
