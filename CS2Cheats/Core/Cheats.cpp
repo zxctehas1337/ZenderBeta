@@ -17,6 +17,7 @@
 #include "../Helpers/Logger.h"
 #include "../Features/SoundESP.h"
 #include "../Features/Aimbot.h"
+#include "../Features/GrenadeESP.h"
 
 int PreviousTotalHits = 0;
 
@@ -110,6 +111,9 @@ void Cheats::Run()
 
 	// Run aimbot visualization (actual aimbot logic runs in CreateMove hook)
 	Aimbot::DrawFOV(LocalEntity);
+
+	// Render Grenade ESP
+	GrenadeESP::RenderGrenadeESP(LocalEntity);
 
 	int currentFPS = static_cast<int>(ImGui::GetIO().Framerate);
 	if (currentFPS > MenuConfig::RenderFPS)

@@ -111,6 +111,23 @@ namespace GUI
                 // Sound ESP
                 Components::PutSwitch("Sound ESP", 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::EnemySound, true, "###EnemySoundCol", reinterpret_cast<float*>(&ESPConfig::EnemySoundColor));
                 
+                // Grenade ESP
+                Components::PutSwitch("Grenade ESP", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::GrenadeESP, true, "###GrenadeESPCol", reinterpret_cast<float*>(&MiscCFG::GrenadeHEColor));
+                if (MiscCFG::GrenadeESP)
+                {
+                    Components::PutSwitch("Show Trajectory", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeTrajectory);
+                    Components::PutSwitch("Show Explosion Radius", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeRadius);
+                    Components::PutSwitch("Show Danger Warning", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeWarning);
+                    Components::PutSwitch("Show Grenade Timer", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeTimer);
+                    Components::PutSwitch("Show Grenade Name", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeName);
+                    
+                    float minDist = 100.0f, maxDist = 1000.0f;
+                    Components::PutSliderFloat("Warning Distance", 10.f, &MiscCFG::GrenadeWarningDistance, &minDist, &maxDist, "%.0f");
+                    
+                    float minTime = 1.0f, maxTime = 5.0f;
+                    Components::PutSliderFloat("Warning Time", 10.f, &MiscCFG::GrenadeWarningTime, &minTime, &maxTime, "%.1f");
+                }
+                
                 // Additional display options
                 Components::PutSwitch("Show Health Number", 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowHealthNum);
                 Components::PutSwitch("Show Armor Number", 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowArmorNum);
@@ -208,23 +225,6 @@ namespace GUI
             Components::PutSwitch("Silent Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.SilentAim);
             Components::PutSwitch("Visible Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.VisibleCheck);
             Components::PutSwitch("Team Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MenuConfig::TeamCheck);
-            Components::PutSwitch("Toggle Mode", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.ToggleMode);
-            
-            // Aimbot key bind
-            ImGui::TextDisabled("Aimbot Key:");
-            ImGui::SameLine();
-            Components::AlignRight(75.f);
-            ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.18f, 0.22f, 0.25f, 1.0f));
-            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, secondaryColor);
-            if (ImGui::Button("AimKey", { 75.f, 28.f }))
-            {
-                std::thread([&]() {
-                    KeyMgr::GetPressedKey(AimbotCFG::AimbotCFG.AimbotKey, nullptr);
-                    }).detach();
-            }
-            ImGui::PopStyleColor(2);
-            ImGui::PopStyleVar();
             
             // Разделитель
             ImGui::Spacing();
@@ -378,6 +378,94 @@ namespace GUI
             ImGui::Spacing();
             
             Components::PutSwitch(Text::Misc::BunnyHop.c_str(), 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::BunnyHop, false, NULL, NULL, Text::Misc::InsecureTip.c_str());
+            
+            // Разделитель
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+            ImGui::Text("ANTI-AIM (КРУТИЛКА)");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Enable Anti-Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimEnabled);
+            
+            if (MiscCFG::AntiAimEnabled) {
+                // Anti-aim mode selection
+                ImGui::TextDisabled("Anti-Aim Mode:");
+                ImGui::SameLine();
+                Components::AlignRight(120.f);
+                ImGui::SetNextItemWidth(120.f);
+                const char* antiAimModes[] = { "Static", "Jitter", "Spin", "Random" };
+                ImGui::Combo("###AntiAimMode", &MiscCFG::AntiAimMode, antiAimModes, IM_ARRAYSIZE(antiAimModes));
+                
+                // Pitch control
+                float minPitch = -89.0f, maxPitch = 89.0f;
+                Components::PutSliderFloat("Pitch Angle", 10.f, &MiscCFG::AntiAimPitch, &minPitch, &maxPitch, "%.1f");
+                
+                // Yaw offset control
+                float minYaw = -180.0f, maxYaw = 180.0f;
+                Components::PutSliderFloat("Yaw Offset", 10.f, &MiscCFG::AntiAimYawOffset, &minYaw, &maxYaw, "%.1f");
+                
+                if (MiscCFG::AntiAimMode == 2) { // Spin mode
+                    float minSpinSpeed = 1.0f, maxSpinSpeed = 20.0f;
+                    Components::PutSliderFloat("Spin Speed", 10.f, &MiscCFG::AntiAimSpinSpeed, &minSpinSpeed, &maxSpinSpeed, "%.1f");
+                }
+                
+                if (MiscCFG::AntiAimMode == 1) { // Jitter mode
+                    float minJitterRange = 5.0f, maxJitterRange = 90.0f;
+                    Components::PutSliderFloat("Jitter Range", 10.f, &MiscCFG::AntiAimJitterRange, &minJitterRange, &maxJitterRange, "%.1f");
+                }
+                
+                Components::PutSwitch("At Targets", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimAtTargets);
+                Components::PutSwitch("Only When Moving", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimOnMove);
+                Components::PutSwitch("On Key", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimOnKey);
+                
+                if (MiscCFG::AntiAimOnKey) {
+                    ImGui::TextDisabled("Anti-Aim Key:");
+                    ImGui::SameLine();
+                    Components::AlignRight(75.f);
+                    ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
+                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.18f, 0.22f, 0.25f, 1.0f));
+                    ImGui::PushStyleColor(ImGuiCol_ButtonHovered, secondaryColor);
+                    if (ImGui::Button("AntiAimKey", { 75.f, 28.f }))
+                    {
+                        std::thread([&]() {
+                            KeyMgr::GetPressedKey(MiscCFG::AntiAimKey, nullptr);
+                            }).detach();
+                    }
+                    ImGui::PopStyleColor(2);
+                    ImGui::PopStyleVar();
+                }
+                
+                // Разделитель
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
+                
+                ImGui::SetCursorPosX(25.f);
+                ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+                ImGui::Text("ANTI-RESOLVE");
+                ImGui::PopStyleColor();
+                ImGui::Spacing();
+                
+                Components::PutSwitch("Real Angle", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimReal);
+                Components::PutSwitch("Fake Angle", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimFake);
+                
+                if (MiscCFG::AntiAimFake) {
+                    float minFakeOffset = 0.0f, maxFakeOffset = 60.0f;
+                    Components::PutSliderFloat("Fake Offset", 10.f, &MiscCFG::AntiAimFakeOffset, &minFakeOffset, &maxFakeOffset, "%.1f");
+                }
+                
+                Components::PutSwitch("LBY Breaker", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MiscCFG::AntiAimLBYBreaker);
+                
+                if (MiscCFG::AntiAimLBYBreaker) {
+                    float minLBYOffset = 0.0f, maxLBYOffset = 180.0f;
+                    Components::PutSliderFloat("LBY Offset", 10.f, &MiscCFG::AntiAimLBYOffset, &minLBYOffset, &maxLBYOffset, "%.1f");
+                }
+            }
             
             // Разделитель
             ImGui::Spacing();
@@ -576,6 +664,44 @@ namespace GUI
         {
             ImGui::BeginChild("ConfigContent", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysUseWindowPadding);
             ImGui::SetCursorPosY(10.f);
+            
+            // Config mode selection at the top
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+            ImGui::Text("CONFIG MODE");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            // Config mode selector
+            ImGui::SetCursorPosX(25.f);
+            ImGui::TextDisabled("Select Config Type:");
+            ImGui::SameLine();
+            Components::AlignRight(200.f);
+            ImGui::SetNextItemWidth(200.f);
+            const char* configModes[] = { "LEGIT", "SEMIRAGE", "RAGE" };
+            ImGui::Combo("###ConfigMode", &AimbotCFG::CurrentConfig, configModes, IM_ARRAYSIZE(configModes));
+            
+            // Config description based on selection
+            ImGui::Spacing();
+            ImGui::SetCursorPosX(25.f);
+            switch (AimbotCFG::CurrentConfig) {
+            case AimbotCFG::LEGIT:
+                ImGui::TextDisabled("Legit: Human-like aiming with smooth movement");
+                break;
+            case AimbotCFG::SEMIRAGE:
+                ImGui::TextDisabled("SemiRage: Balanced features for HvH gameplay");
+                break;
+            case AimbotCFG::RAGE:
+                ImGui::TextDisabled("RAGE: Maximum aggression for HvH domination");
+                break;
+            }
+            
+            // Разделитель
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            // Render the original config menu
             ConfigMenu::RenderCFGmenu();
             ImGui::EndChild();
         }

@@ -147,11 +147,8 @@ namespace Aimbot
     // Apply recoil control
     Vec3 ApplyRecoilControl(const Vec3& aimAngle, const CEntity& localPlayer);
 
-    // Check if aimbot key is pressed based on toggle/hold mode
+    // Check if aimbot should be active (now only checks if enabled)
     bool IsAimbotKeyActive();
-
-    // Toggle aimbot state when in toggle mode
-    void ToggleAimbot();
 
     // Handle auto-fire functionality
     void HandleAutoFire(CUserCmd* cmd, bool targetAcquired, const Vec3& targetPos);
@@ -167,4 +164,35 @@ namespace Aimbot
 
     // Angle clamping helper
     void ClampAngle(Vec3& angle);
+
+    // RAGE MODE SPECIFIC FUNCTIONS
+    // Perfect silent aim with no visual movement
+    bool ApplyRageSilentAim(CUserCmd* cmd, const Vec3& targetAngle, const Vec3& localPos, const Vec3& targetPos);
+    
+    // Instant hit calculation for rage mode
+    bool CalculateInstantHit(const Vec3& source, const Vec3& target, Vec3& outAngle, float& outTime);
+    
+    // Autowall penetration calculation
+    bool CanPenetrateWall(const Vec3& source, const Vec3& target, float& damage);
+    
+    // Multipoint scanning for rage mode
+    bool GetMultipointHitbox(const CEntity& entity, int hitbox, Vec3& outPos, float scale = 0.8f);
+    
+    // Anti-aim integration
+    Vec3 ApplyAntiAim(const CEntity& localPlayer, CUserCmd* cmd, bool& shouldSend);
+    
+    // LBY breaker for anti-resolver
+    void BreakLBY(CUserCmd* cmd, float& yaw);
+    
+    // Resolver bypass techniques
+    Vec3 ApplyResolverBypass(const CEntity& entity, const Vec3& originalPos);
+    
+    // No spread compensation
+    Vec3 ApplyNoSpread(const Vec3& aimAngle, CUserCmd* cmd);
+    
+    // Force headshot with damage calculation
+    bool ShouldForceHeadshot(const CEntity& target, float weaponDamage);
+    
+    // Advanced visibility check for rage mode
+    bool IsVisibleForRage(const CEntity& localPlayer, const CEntity& target, const Vec3& pos, bool ignoreWalls = false);
 }

@@ -104,8 +104,6 @@ bool InitializeTrace()
 
 // Global variables for aimbot state
 namespace {
-    bool g_aimbotToggled = false;
-    bool g_lastKeyState = false;
     DWORD g_lastFireTime = 0;
     const DWORD FIRE_DELAY_MS = 50; // Delay between auto-fire shots in milliseconds
     
@@ -680,33 +678,12 @@ namespace Aimbot
         return compensatedAngle;
     }
 
+    // Check if aimbot should be active (now only checks if enabled)
     bool IsAimbotKeyActive()
     {
-        if (AimbotCFG::AimbotCFG.ToggleMode)
-        {
-            // Toggle mode
-            bool currentKeyState = (GetAsyncKeyState(AimbotCFG::AimbotCFG.AimbotKey) & 0x8000) != 0;
-            
-            // Detect key press (transition from not pressed to pressed)
-            if (currentKeyState && !g_lastKeyState)
-            {
-                g_aimbotToggled = !g_aimbotToggled;
-            }
-            
-            g_lastKeyState = currentKeyState;
-            return g_aimbotToggled;
-        }
-        else
-        {
-            // Hold mode
-            return (GetAsyncKeyState(AimbotCFG::AimbotCFG.AimbotKey) & 0x8000) != 0;
-        }
+        return AimbotCFG::AimbotCFG.AimbotEnabled;
     }
 
-    void ToggleAimbot()
-    {
-        g_aimbotToggled = !g_aimbotToggled;
-    }
 
     void HandleAutoFire(CUserCmd* cmd, bool targetAcquired, const Vec3& targetPos)
     {
@@ -750,6 +727,19 @@ namespace Aimbot
         if (!IsAimbotKeyActive())
             return;
 
+        // Apply anti-aim if enabled and we're not aiming
+        bool shouldSendPacket = true;
+        if (MiscCFG::AntiAimEnabled && (!AimbotCFG::AimbotCFG.AimbotEnabled || !IsAimbotKeyActive())) {
+            Vec3 antiAimAngle = ApplyAntiAim(localPlayer, cmd, shouldSendPacket);
+            cmd->viewangles = antiAimAngle;
+            
+            // Don't send packets for choke when anti-aim is active
+            if (!shouldSendPacket) {
+                // This would need to be implemented in the actual hook
+            }
+            return;
+        }
+
         // Find best target
         Vec3 targetAngle;
         Vec3 targetPos;
@@ -765,12 +755,58 @@ namespace Aimbot
         currentViewAngle.x = localPlayer.Pawn.ViewAngle.x;
         currentViewAngle.y = localPlayer.Pawn.ViewAngle.y;
         currentViewAngle.z = 0.0f;
-        
+
+        Vec3 finalAngle = targetAngle;
+
+        // RAGE MODE SPECIFIC LOGIC
+        if (AimbotCFG::CurrentConfig == AimbotCFG::RAGE) {
+            // Apply rage-specific features
+            if (AimbotCFG::RageCFG.Multipoint) {
+                Vec3 multipointPos;
+                if (GetMultipointHitbox(entities[0].entity, HITBOX_HEAD, multipointPos, AimbotCFG::RageCFG.MultipointScale)) {
+                    targetPos = multipointPos;
+                    finalAngle = CalculateAngle(localPlayer.Pawn.CameraPos, targetPos);
+                }
+            }
+
+            // Apply resolver bypass for rage mode
+            targetPos = ApplyResolverBypass(entities[0].entity, targetPos);
+            finalAngle = CalculateAngle(localPlayer.Pawn.CameraPos, targetPos);
+
+            // Check autowall for rage mode
+            if (AimbotCFG::RageCFG.AimThroughWalls) {
+                float damage = 0.0f;
+                if (CanPenetrateWall(localPlayer.Pawn.CameraPos, targetPos, damage)) {
+                    // Can penetrate wall, continue with shot
+                } else if (!IsVisibleForRage(localPlayer, entities[0].entity, targetPos, true)) {
+                    return; // Can't penetrate and not visible
+                }
+            }
+
+            // Apply perfect silent aim for rage mode
+            if (AimbotCFG::RageCFG.PerfectSilent) {
+                ApplyRageSilentAim(cmd, finalAngle, localPlayer.Pawn.CameraPos, targetPos);
+            } else {
+                cmd->viewangles = finalAngle;
+            }
+
+            // Force attack in rage mode
+            if (AimbotCFG::RageCFG.ForceHeadshot || AimbotCFG::AimbotCFG.AutoFireMode == 2) {
+                cmd->buttons |= IN_ATTACK;
+                cmd->tick_count += 16; // Tick manipulation for instant hit
+            }
+
+            return; // Skip normal aimbot logic for rage mode
+        }
+
+        // NORMAL/SEMIRAGE MODE LOGIC
         // Apply smoothing
-        Vec3 smoothedAngle = ApplySmoothing(currentViewAngle, targetAngle, AimbotCFG::AimbotCFG.SmoothValue);
+        if (AimbotCFG::AimbotCFG.SmoothAim) {
+            finalAngle = ApplySmoothing(currentViewAngle, finalAngle, AimbotCFG::AimbotCFG.SmoothValue);
+        }
         
         // Apply recoil control
-        Vec3 finalAngle = ApplyRecoilControl(smoothedAngle, localPlayer);
+        finalAngle = ApplyRecoilControl(finalAngle, localPlayer);
         
         // Apply sensitivity
         finalAngle.x *= AimbotCFG::AimbotCFG.Sensitivity;
@@ -779,14 +815,12 @@ namespace Aimbot
         // Clamp angles to valid range
         ClampAngle(finalAngle);
         
-        // Apply the aim - VAC safe method
+        // Apply the aim
         if (AimbotCFG::AimbotCFG.SilentAim)
         {
             cmd->viewangles = finalAngle;
             cmd->tick_count += 1; // Anti-anti-aim
         }
-        // Note: Removed direct memory writing for VAC safety
-        // Silent aim should be used instead of direct angle writing
 
         // Handle auto-fire
         HandleAutoFire(cmd, targetAcquired, targetPos);
@@ -842,5 +876,259 @@ namespace Aimbot
             60,
             1.0f
         );
+    }
+
+    // RAGE MODE FUNCTIONS
+    bool ApplyRageSilentAim(CUserCmd* cmd, const Vec3& targetAngle, const Vec3& localPos, const Vec3& targetPos)
+    {
+        if (!cmd || AimbotCFG::CurrentConfig != AimbotCFG::RAGE) {
+            return false;
+        }
+
+        // Perfect silent aim - instant angle change without visual movement
+        cmd->viewangles = targetAngle;
+        
+        // Force instant hit for rage mode
+        if (AimbotCFG::RageCFG.InstantHit) {
+            cmd->tick_count += 16; // Force tick manipulation for instant hit
+        }
+        
+        // Apply no spread compensation
+        if (AimbotCFG::RageCFG.NoSpread) {
+            cmd->viewangles = ApplyNoSpread(targetAngle, cmd);
+        }
+        
+        return true;
+    }
+
+    bool CalculateInstantHit(const Vec3& source, const Vec3& target, Vec3& outAngle, float& outTime)
+    {
+        // Calculate perfect angle for instant hit
+        outAngle = CalculateAngle(source, target);
+        
+        // Calculate bullet travel time (nearly instant for rage mode)
+        float distance = source.DistanceTo(target);
+        float bulletSpeed = 10000.0f; // Exaggerated speed for rage mode
+        outTime = distance / bulletSpeed;
+        
+        // Compensate for bullet drop (minimal for rage mode)
+        outAngle.x -= (0.5f * 800.0f * outTime * outTime) * (180.0f / 3.14159265359f) / distance;
+        
+        return true;
+    }
+
+    bool CanPenetrateWall(const Vec3& source, const Vec3& target, float& damage)
+    {
+        if (!AimbotCFG::RageCFG.AutoWall) {
+            return false;
+        }
+
+        // Simple autowall calculation
+        float distance = source.DistanceTo(target);
+        float penetrationPower = AimbotCFG::RageCFG.WallPenetrationPower;
+        
+        // Calculate damage reduction based on wall thickness
+        damage = 100.0f * (1.0f - (distance / 10000.0f) * (1.0f / penetrationPower));
+        
+        return damage >= AimbotCFG::RageCFG.MinDamage;
+    }
+
+    bool GetMultipointHitbox(const CEntity& entity, int hitbox, Vec3& outPos, float scale)
+    {
+        if (!AimbotCFG::RageCFG.Multipoint) {
+            return false;
+        }
+
+        // Get base hitbox position
+        bool isValid;
+        outPos = GetHitboxPosition(entity, hitbox, isValid);
+        
+        if (!isValid) {
+            return false;
+        }
+
+        // Add multipoint scaling for better hit registration
+        Vec3 center = entity.Pawn.Pos;
+        Vec3 direction = outPos - center;
+        direction = direction * scale;
+        outPos = center + direction;
+        
+        return true;
+    }
+
+    Vec3 ApplyAntiAim(const CEntity& localPlayer, CUserCmd* cmd, bool& shouldSend)
+    {
+        if (!MiscCFG::AntiAimEnabled) {
+            return cmd->viewangles;
+        }
+
+        Vec3 antiAimAngle = cmd->viewangles;
+        shouldSend = false; // Don't send packet for choke
+
+        // Apply pitch based on mode
+        switch (MiscCFG::AntiAimMode) {
+        case 0: // Static
+            antiAimAngle.x = MiscCFG::AntiAimPitch;
+            break;
+        case 1: // Jitter
+            {
+                static bool jitterSwitch = false;
+                jitterSwitch = !jitterSwitch;
+                antiAimAngle.x = jitterSwitch ? MiscCFG::AntiAimPitch : -MiscCFG::AntiAimPitch;
+            }
+            break;
+        case 2: // Spin
+            {
+                static float spinAngle = 0.0f;
+                spinAngle += MiscCFG::AntiAimSpinSpeed * 5.0f;
+                if (spinAngle > 180.0f) spinAngle -= 360.0f;
+                antiAimAngle.x = spinAngle;
+            }
+            break;
+        case 3: // Random
+            antiAimAngle.x = -89.0f + (static_cast<float>(rand()) / RAND_MAX) * 178.0f;
+            break;
+        }
+
+        // Apply yaw offset
+        float baseYaw = localPlayer.Pawn.ViewAngle.y + MiscCFG::AntiAimYawOffset;
+        
+        switch (MiscCFG::AntiAimMode) {
+        case 0: // Static
+            antiAimAngle.y = baseYaw;
+            break;
+        case 1: // Jitter
+            {
+                static bool yawJitter = false;
+                yawJitter = !yawJitter;
+                float jitter = yawJitter ? MiscCFG::AntiAimJitterRange : -MiscCFG::AntiAimJitterRange;
+                antiAimAngle.y = baseYaw + jitter;
+            }
+            break;
+        case 2: // Spin
+            {
+                static float spinYaw = 0.0f;
+                spinYaw += MiscCFG::AntiAimSpinSpeed;
+                if (spinYaw > 180.0f) spinYaw -= 360.0f;
+                antiAimAngle.y = spinYaw;
+            }
+            break;
+        case 3: // Random
+            antiAimAngle.y = baseYaw + (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 180.0f;
+            break;
+        }
+
+        // Apply LBY breaker
+        if (MiscCFG::AntiAimLBYBreaker) {
+            BreakLBY(cmd, antiAimAngle.y);
+        }
+
+        return antiAimAngle;
+    }
+
+    void BreakLBY(CUserCmd* cmd, float& yaw)
+    {
+        static float lastLBYUpdate = 0.0f;
+        static bool shouldBreak = false;
+        
+        // Simulate LBY update timing
+        float currentTime = GetTickCount64() / 1000.0f;
+        if (currentTime - lastLBYUpdate > 1.1f) {
+            shouldBreak = !shouldBreak;
+            lastLBYUpdate = currentTime;
+        }
+        
+        if (shouldBreak) {
+            yaw += MiscCFG::AntiAimLBYOffset;
+        }
+    }
+
+    Vec3 ApplyResolverBypass(const CEntity& entity, const Vec3& originalPos)
+    {
+        if (AimbotCFG::CurrentConfig != AimbotCFG::RAGE || !AimbotCFG::RageCFG.ResolverEnabled) {
+            return originalPos;
+        }
+
+        Vec3 bypassedPos = originalPos;
+        
+        // Apply aggressive resolver bypass for rage mode
+        switch (AimbotCFG::RageCFG.ResolverMode) {
+        case 1: // Advanced
+            {
+                float lby = entity.Pawn.LowerBodyYaw;
+                float eye = entity.Pawn.ViewAngle.y;
+                float delta = NormalizeAngle(eye - lby);
+                
+                if (std::abs(delta) > 30.0f) {
+                    // Force head position calculation
+                    float offset = 45.0f * (delta > 0 ? 1 : -1);
+                    bypassedPos.x += static_cast<float>(cos((eye + offset) * M_PI / 180.0f) * 20.0f);
+                    bypassedPos.y += static_cast<float>(sin((eye + offset) * M_PI / 180.0f) * 20.0f);
+                }
+            }
+            break;
+        case 2: // Aggressive
+            {
+                // Brute force with multiple angles
+                static std::map<uint64_t, int> bruteForceIndex;
+                uint64_t steamID = entity.Controller.SteamID;
+                
+                int& index = bruteForceIndex[steamID];
+                const float angles[] = { 0, 30, -30, 60, -60, 90, -90, 120, -120, 180 };
+                
+                index = (index + 1) % (sizeof(angles) / sizeof(angles[0]));
+                float finalAngle = entity.Pawn.ViewAngle.y + angles[index];
+                
+                bypassedPos.x += static_cast<float>(cos(finalAngle * M_PI / 180.0f) * 25.0f);
+                bypassedPos.y += static_cast<float>(sin(finalAngle * M_PI / 180.0f) * 25.0f);
+            }
+            break;
+        }
+        
+        return bypassedPos;
+    }
+
+    Vec3 ApplyNoSpread(const Vec3& aimAngle, CUserCmd* cmd)
+    {
+        if (!AimbotCFG::RageCFG.NoSpread) {
+            return aimAngle;
+        }
+
+        // Simple no spread compensation
+        Vec3 compensatedAngle = aimAngle;
+        
+        // Add random seed manipulation for spread reduction
+        static int seed = 0;
+        seed = (seed + 1) % 256;
+        cmd->random_seed = seed;
+        
+        // Apply spread compensation angle
+        compensatedAngle.x += (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 0.1f;
+        compensatedAngle.y += (static_cast<float>(rand()) / RAND_MAX - 0.5f) * 0.1f;
+        
+        return compensatedAngle;
+    }
+
+    bool ShouldForceHeadshot(const CEntity& target, float weaponDamage)
+    {
+        if (!AimbotCFG::RageCFG.ForceHeadshot) {
+            return false;
+        }
+
+        // Always force headshot in rage mode if damage is sufficient
+        return weaponDamage >= AimbotCFG::RageCFG.MinDamage;
+    }
+
+    bool IsVisibleForRage(const CEntity& localPlayer, const CEntity& target, const Vec3& pos, bool ignoreWalls)
+    {
+        if (ignoreWalls || AimbotCFG::CurrentConfig == AimbotCFG::RAGE) {
+            // In rage mode, ignore most visibility checks
+            if (AimbotCFG::RageCFG.IgnoreSmoke && AimbotCFG::RageCFG.IgnoreFlash) {
+                return true;
+            }
+        }
+
+        // Fall back to normal visibility check
+        return IsTargetVisible(localPlayer, target, pos);
     }
 }

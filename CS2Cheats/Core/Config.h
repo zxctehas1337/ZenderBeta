@@ -150,45 +150,157 @@ namespace RadarCFG
 
 namespace AimbotCFG
 {
+    // LEGIT CONFIG
     inline struct {
         bool AimbotEnabled = false;
-        bool ToggleMode = false;
-        int AimbotKey = VK_RBUTTON;
         bool SilentAim = false;
-        float FOVRadius = 120.0f;
-        float FOVRadiusMin = 10.0f;
-        float FOVRadiusMax = 180.0f;
+        float FOVRadius = 15.0f;
+        float FOVRadiusMin = 5.0f;
+        float FOVRadiusMax = 30.0f;
         bool ShowFov = true;
         bool DrawAimbotFOV = true;
         ImU32 FOVCircleColor = ImColor(255, 255, 255, 180);
         float FOVCircleThickness = 1.0f;
         bool VisibleCheck = true;
         bool TeamCheck = true;
-        float MaxDistance = 5000.0f;
+        float MaxDistance = 500.0f;
+        int AimBone = 0;
+        bool TargetHeadOnly = true;
+        bool StopWhenNoHead = true;
+        bool SmoothAim = true;
+        float SmoothValue = 0.85f;
+        bool RCS = false;
+        float RCSStrength = 0.5f;
+        float Sensitivity = 1.0f;
+        int AutoFireMode = 0;
+        bool TriggerBot = false;
+        int TriggerDelay = 150;
+        
+        // Advanced features
+        bool RealTraceLine = true;
+        bool PingPrediction = false;
+        float PingPredictionAmount = 0.3f;
+        bool HitboxBasedTargeting = false;
+        int HitboxPriority = 0;
+        bool ResolverEnabled = false;
+        int ResolverMode = 0;
+        bool CreateMoveHook = false;
+        bool SilentAimInCreateMove = false;
+        bool TriggerBotInCreateMove = false;
+    } LegitCFG;
+
+    // SEMIRAGE CONFIG
+    inline struct {
+        bool AimbotEnabled = false;
+        bool SilentAim = true;
+        float FOVRadius = 45.0f;
+        float FOVRadiusMin = 20.0f;
+        float FOVRadiusMax = 80.0f;
+        bool ShowFov = true;
+        bool DrawAimbotFOV = true;
+        ImU32 FOVCircleColor = ImColor(255, 200, 0, 180);
+        float FOVCircleThickness = 1.5f;
+        bool VisibleCheck = true;
+        bool TeamCheck = true;
+        float MaxDistance = 1500.0f;
         int AimBone = 0;
         bool TargetHeadOnly = false;
         bool StopWhenNoHead = false;
         bool SmoothAim = true;
-        float SmoothValue = 0.5f;
+        float SmoothValue = 0.4f;
         bool RCS = true;
-        float RCSStrength = 1.0f;
+        float RCSStrength = 0.8f;
         float Sensitivity = 1.0f;
-        int AutoFireMode = 0;
-        bool TriggerBot = false;
-        int TriggerDelay = 50;
+        int AutoFireMode = 1;
+        bool TriggerBot = true;
+        int TriggerDelay = 80;
         
         // Advanced features
         bool RealTraceLine = true;
         bool PingPrediction = true;
-        float PingPredictionAmount = 1.0f;
-        bool HitboxBasedTargeting = false;
-        int HitboxPriority = 0; // 0: Head, 1: Chest, 2: Stomach, 3: Auto
-        bool ResolverEnabled = false;
-        int ResolverMode = 0; // 0: Basic, 1: Advanced, 2: Aggressive
+        float PingPredictionAmount = 0.7f;
+        bool HitboxBasedTargeting = true;
+        int HitboxPriority = 0;
+        bool ResolverEnabled = true;
+        int ResolverMode = 1;
         bool CreateMoveHook = true;
         bool SilentAimInCreateMove = true;
         bool TriggerBotInCreateMove = false;
-    } AimbotCFG;
+    } SemiRageCFG;
+
+    // RAGE CONFIG
+    inline struct {
+        bool AimbotEnabled = false;
+        bool SilentAim = true;
+        float FOVRadius = 180.0f;
+        float FOVRadiusMin = 90.0f;
+        float FOVRadiusMax = 180.0f;
+        bool ShowFov = false;
+        bool DrawAimbotFOV = false;
+        ImU32 FOVCircleColor = ImColor(255, 0, 0, 180);
+        float FOVCircleThickness = 2.0f;
+        bool VisibleCheck = false;
+        bool TeamCheck = true;
+        float MaxDistance = 10000.0f;
+        int AimBone = 0;
+        bool TargetHeadOnly = false;
+        bool StopWhenNoHead = false;
+        bool SmoothAim = false;
+        float SmoothValue = 0.0f;
+        bool RCS = true;
+        float RCSStrength = 2.0f;
+        float Sensitivity = 1.0f;
+        int AutoFireMode = 2;
+        bool TriggerBot = true;
+        int TriggerDelay = 10;
+        
+        // Advanced features
+        bool RealTraceLine = true;
+        bool PingPrediction = true;
+        float PingPredictionAmount = 1.5f;
+        bool HitboxBasedTargeting = true;
+        int HitboxPriority = 0;
+        bool ResolverEnabled = true;
+        int ResolverMode = 2;
+        bool CreateMoveHook = true;
+        bool SilentAimInCreateMove = true;
+        bool TriggerBotInCreateMove = true;
+        
+        // RAGE SPECIFIC
+        bool ForceHeadshot = true;
+        bool IgnoreSmoke = true;
+        bool IgnoreFlash = true;
+        bool AutoWall = true;
+        float MinDamage = 20.0f;
+        bool AimThroughWalls = true;
+        float WallPenetrationPower = 2.0f;
+        bool PerfectSilent = true;
+        bool NoSpread = true;
+        bool InstantHit = true;
+        bool Multipoint = true;
+        float MultipointScale = 0.8f;
+    } RageCFG;
+
+    // Current active config
+    enum ConfigMode {
+        LEGIT = 0,
+        SEMIRAGE = 1,
+        RAGE = 2
+    };
+    inline int CurrentConfig = LEGIT;
+
+    // Get current config reference
+    inline auto& GetCurrentConfig() {
+        switch (CurrentConfig) {
+            case LEGIT: return LegitCFG;
+            case SEMIRAGE: return SemiRageCFG;
+            case RAGE: return RageCFG;
+            default: return LegitCFG;
+        }
+    }
+
+    // Legacy compatibility
+    inline auto& AimbotCFG = GetCurrentConfig();
 }
 
 namespace MiscCFG
@@ -241,4 +353,37 @@ namespace MiscCFG
     inline float WallbangSensitivity = 0.5f;  // 0.0 to 1.0
     inline ImColor WallbangColorPenetrable = ImColor(255, 0, 0, 255);  // Red - can penetrate
     inline ImColor WallbangColorNotPenetrable = ImColor(0, 255, 0, 255);  // Green - cannot penetrate
+
+    // Grenade ESP settings
+    inline bool GrenadeESP = true;
+    inline bool ShowGrenadeTrajectory = true;
+    inline bool ShowGrenadeRadius = true;
+    inline bool ShowGrenadeWarning = true;
+    inline bool ShowGrenadeTimer = true;
+    inline bool ShowGrenadeName = true;
+    inline float GrenadeWarningDistance = 500.0f;
+    inline float GrenadeWarningTime = 3.0f;
+    inline ImColor GrenadeHEColor = ImColor(255, 100, 100, 200);
+    inline ImColor GrenadeMolotovColor = ImColor(255, 150, 50, 200);
+    inline ImColor GrenadeFlashColor = ImColor(200, 200, 255, 200);
+    inline ImColor GrenadeSmokeColor = ImColor(150, 150, 150, 200);
+    inline ImColor GrenadeDangerColor = ImColor(255, 0, 0, 255);
+    inline ImColor GrenadeTrajectoryColor = ImColor(255, 255, 255, 150);
+
+    // Anti-Aim (Крутилка) settings
+    inline bool AntiAimEnabled = false;
+    inline int AntiAimMode = 0; // 0: Static, 1: Jitter, 2: Spin, 3: Random
+    inline float AntiAimPitch = -89.0f; // -89 (up), 0 (center), 89 (down)
+    inline float AntiAimYawOffset = 180.0f; // 180 (backward), 90 (left), -90 (right)
+    inline float AntiAimSpinSpeed = 5.0f; // Speed for spin mode
+    inline float AntiAimJitterRange = 30.0f; // Jitter range in degrees
+    inline bool AntiAimAtTargets = false; // Aim at enemies when visible
+    inline bool AntiAimOnMove = true; // Only activate when moving
+    inline bool AntiAimOnKey = false; // Activate on key press
+    inline int AntiAimKey = VK_LSHIFT; // Key to toggle anti-aim
+    inline bool AntiAimReal = false; // Real angle (for desync)
+    inline bool AntiAimFake = true; // Fake angle (for resolver bypass)
+    inline float AntiAimFakeOffset = 30.0f; // Offset for fake angle
+    inline bool AntiAimLBYBreaker = true; // Break LBY for anti-resolver
+    inline float AntiAimLBYOffset = 120.0f; // LBY breaker offset
 }
