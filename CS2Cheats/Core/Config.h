@@ -52,27 +52,27 @@ namespace ESPConfig
 {
 	inline int HotKey = VK_F6;
 	inline bool ESPenabled = true;
-	inline bool AmmoBar = false;
+	inline bool AmmoBar = true;
 	inline bool ShowBoneESP = true;
 	inline bool ShowBoxESP = true;
 	inline bool ShowHealthBar = true;
 	inline bool ShowWeaponESP = true;
-	inline bool ShowEyeRay = false;
+	inline bool ShowEyeRay = true;
 	inline bool ShowPlayerName = true;
-	inline bool DrawFov = false;
-	inline bool ShowDistance = false;
-	inline bool ShowHealthNum = false;
-	inline bool ArmorBar = false;
-	inline bool ShowArmorNum = false;
+	inline bool DrawFov = true;
+	inline bool ShowDistance = true;
+	inline bool ShowHealthNum = true;
+	inline bool ArmorBar = true;
+	inline bool ShowArmorNum = true;
 	inline bool ShowHeadBox = true;
 	inline bool ShowPreview = true;
-	inline bool VisibleCheck = false;
+	inline bool VisibleCheck = true;
 	inline bool FilledBox = false;
 	inline bool FilledVisBox = false;
 	inline bool MultiColor = false;
 	inline bool OutLine = true;
 	inline bool ShowIsScoped = true;
-	inline bool ShowIsBlind = false;
+	inline bool ShowIsBlind = true;
 	inline bool FlashCheck = false;
 	// 0: normal 1: Corner
 	inline int BoxType = 0;
@@ -150,35 +150,45 @@ namespace RadarCFG
 
 namespace AimbotCFG
 {
-	inline bool AimbotEnabled = true;
-	inline bool SilentAim = false;
-	inline bool VisibleCheck = true;
-	inline bool TeamCheck = true;
-	inline bool HeadOnly = false;
-	inline bool PredictMovement = true;
-	inline bool SmoothAim = true;
-	inline float SmoothValue = 0.5f;
-	inline float MaxDistance = 8000.0f;
-	inline float FOVRadius = 20.0f;
-	inline int AimbotKey = VK_RBUTTON; // Right mouse button
-	inline bool ToggleMode = true; // true = toggle, false = hold
-	inline float Sensitivity = 1.0f;
-	inline bool DrawAimbotFOV = false;
-	inline ImColor FOVColor = ImColor(0, 255, 0, 100);
-	inline bool RCS = false; // Recoil Control System
-	inline float RCSStrength = 1.0f;
-	
-	// New parameters for advanced aimbot
-	inline int AimBone = 0; // 0: Head, 1: Neck, 2: Chest, 3: Stomach, 4: Pelvis, 5: Auto
-	inline bool ShowFov = true; // Show FOV circle on screen
-	inline int AutoFireMode = 0; // 0: Off, 1: On Sight, 2: Auto Aim
-	inline bool AutoFire = false; // Legacy auto fire (deprecated, use AutoFireMode)
-	inline float FOVRadiusMin = 1.0f; // Minimum FOV radius
-	inline float FOVRadiusMax = 55.0f; // Maximum FOV radius
-	inline ImColor FOVCircleColor = ImColor(255, 255, 255, 255); // FOV circle color
-	inline float FOVCircleThickness = 2.0f; // FOV circle line thickness
-	inline bool TargetHeadOnly = false; // Target only head (overrides AimBone)
-	inline bool StopWhenNoHead = true; // Stop aiming when head is not in radius
+    inline struct {
+        bool AimbotEnabled = false;
+        bool ToggleMode = false;
+        int AimbotKey = VK_RBUTTON;
+        bool SilentAim = false;
+        float FOVRadius = 120.0f;
+        float FOVRadiusMin = 10.0f;
+        float FOVRadiusMax = 180.0f;
+        bool ShowFov = true;
+        bool DrawAimbotFOV = true;
+        ImU32 FOVCircleColor = ImColor(255, 255, 255, 180);
+        float FOVCircleThickness = 1.0f;
+        bool VisibleCheck = true;
+        bool TeamCheck = true;
+        float MaxDistance = 5000.0f;
+        int AimBone = 0;
+        bool TargetHeadOnly = false;
+        bool StopWhenNoHead = false;
+        bool SmoothAim = true;
+        float SmoothValue = 0.5f;
+        bool RCS = true;
+        float RCSStrength = 1.0f;
+        float Sensitivity = 1.0f;
+        int AutoFireMode = 0;
+        bool TriggerBot = false;
+        int TriggerDelay = 50;
+        
+        // Advanced features
+        bool RealTraceLine = true;
+        bool PingPrediction = true;
+        float PingPredictionAmount = 1.0f;
+        bool HitboxBasedTargeting = false;
+        int HitboxPriority = 0; // 0: Head, 1: Chest, 2: Stomach, 3: Auto
+        bool ResolverEnabled = false;
+        int ResolverMode = 0; // 0: Basic, 1: Advanced, 2: Aggressive
+        bool CreateMoveHook = true;
+        bool SilentAimInCreateMove = true;
+        bool TriggerBotInCreateMove = false;
+    } AimbotCFG;
 }
 
 namespace MiscCFG
@@ -193,7 +203,7 @@ namespace MiscCFG
 	inline bool FastStop = false;
 	inline int FastStopDelay = 120;
 	inline int FastStopOffset = 0;
-	inline bool SpecList = false;
+	inline bool SpecList = true;
 	inline ImColor BombTimerCol = ImColor(131, 137, 150, 255);
 	inline bool ShowHeadShootLine = false;
 	inline ImColor HeadShootLineColor = ImColor(131, 137, 150, 200);

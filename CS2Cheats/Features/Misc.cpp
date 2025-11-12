@@ -37,6 +37,10 @@ namespace Misc
 			return;
 
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize;
+		// Set watermark position to left corner
+		if (MenuConfig::MarkWinPos.x == 0 && MenuConfig::MarkWinPos.y == 0) {
+			MenuConfig::MarkWinPos = ImVec2(10.0f, 10.0f); // Default to top-left corner
+		}
 		ImGui::SetNextWindowPos(MenuConfig::MarkWinPos, ImGuiCond_Once);
 		ImGui::SetNextWindowBgAlpha(0.8f);
 

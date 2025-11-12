@@ -1,6 +1,6 @@
 #include "Entity.h"
-#undef min()
-#undef max()
+#undef min
+#undef max
 
 
 std::unordered_map<int, std::string> CEntity::weaponNames = {

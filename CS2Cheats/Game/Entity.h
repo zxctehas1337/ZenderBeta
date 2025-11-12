@@ -81,6 +81,8 @@ public:
 	Vec3 Pos;
 	Vec2 ScreenPos;
 	Vec3 CameraPos;
+	Vec3 Velocity; // Actual velocity vector for prediction
+	float LowerBodyYaw; // LBY for resolver
 	float Speed;
 	std::string WeaponName;
 	DWORD ShotsFired;

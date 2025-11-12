@@ -107,6 +107,7 @@
     <ClInclude Include="Core\GUI.h" />
     <ClInclude Include="Core\Init.h" />
     <ClInclude Include="Core\Render.h" />
+    <ClInclude Include="Features\Aimbot.h" />
     <ClInclude Include="Features\BombTimer.h" />
     <ClInclude Include="Features\ESP.h" />
     <ClInclude Include="Features\Misc.h" />
@@ -151,6 +152,12 @@
     <ClCompile Include="Config\ConfigSaver.cpp" />
     <ClCompile Include="Core\Cheats.cpp" />
     <ClCompile Include="Core\GlobalVars.cpp" />
+    <ClCompile Include="Core\GUI.cpp" />
+    <ClCompile Include="Core\GUI_Functions.cpp" />
+    <ClCompile Include="Core\GUI_ToolBar.cpp" />
+    <ClCompile Include="Core\GUI_Tabs.cpp" />
+    <ClCompile Include="Core\Render.cpp" />
+    <ClCompile Include="Features\Aimbot.cpp" />
     <ClCompile Include="Features\Misc.cpp" />
     <ClCompile Include="Features\Radar.cpp" />
     <ClCompile Include="Game\Bone.cpp" />

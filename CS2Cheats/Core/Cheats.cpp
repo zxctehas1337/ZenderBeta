@@ -108,8 +108,7 @@ void Cheats::Run()
 	Radar(GameRadar, LocalEntity);
 	MiscFuncs(LocalEntity, renderEntities); // Pass renderEntities
 
-	// Run aimbot
-	Aimbot::Run(LocalEntity, renderEntities);
+	// Run aimbot visualization (actual aimbot logic runs in CreateMove hook)
 	Aimbot::DrawFOV(LocalEntity);
 
 	int currentFPS = static_cast<int>(ImGui::GetIO().Framerate);
@@ -309,7 +308,7 @@ void Cheats::HandleEnts(const std::vector<EntityResult>& entities, CEntity& loca
 						ArmorBarPos = { Rect.x - 6.f, Rect.y };
 					
 					ImVec2 ArmorBarSize = { 4.f, Rect.w };
-					Render::DrawArmorBar(static_cast<DWORD>(entity.Controller.Address), 100.0f, static_cast<float>(entity.Pawn.Armor), HasHelmet, ArmorBarPos, ArmorBarSize);
+					Render::DrawArmorBar(static_cast<DWORD>(entity.Controller.Address), static_cast<float>(entity.Pawn.Armor), 100.0f, HasHelmet, ArmorBarPos, ArmorBarSize);
 				}
 			}
 		}

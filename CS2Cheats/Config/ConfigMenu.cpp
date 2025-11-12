@@ -18,6 +18,8 @@
 		ImVec4 warningColor = ImVec4(0.6f, 0.4f, 0.0f, 0.8f);    // Orange for warning
 		
 		ImGui::Columns(2, nullptr, false);
+		ImGui::SetColumnWidth(0, ImGui::GetContentRegionAvail().x * 0.52f); // Slightly wider left column
+		
 		static char configNameBuffer[128] = "NewConfig";
 		static char configAuthorBuffer[128] = "Author";
 		static int selectedConfig = -1;
@@ -159,20 +161,29 @@
 
 		ImGui::NextColumn();
 		CurrentCursorX = ImGui::GetCursorPosX();
+		float RightColumnWidth = ImGui::GetColumnWidth() - 30.f; // Account for padding
+		
 		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
 		ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
 		ImGui::Text("CREATE CONFIG");
 		ImGui::PopStyleColor();
 		ImGui::Spacing();
+		
+		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
 		ImGui::TextDisabled(Text::Config::ConfigName.c_str());
-		ImGui::SetNextItemWidth(ComponentWidth + 8);
+		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
+		ImGui::SetNextItemWidth(RightColumnWidth);
 		ImGui::InputText("###ConfigNameInput", configNameBuffer, sizeof(configNameBuffer));
+		
+		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
 		ImGui::TextDisabled(Text::Config::AuthorName.c_str());
-		ImGui::SetNextItemWidth(ComponentWidth + 8);
+		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
+		ImGui::SetNextItemWidth(RightColumnWidth);
 		ImGui::InputText("###AuthorNameInput", configAuthorBuffer, sizeof(configAuthorBuffer));
 		ImGui::NewLine();
 		
 		// Create button with success theme
+		ImGui::SetCursorPosX(CurrentCursorX + 15.f);
 		ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 4.f);
 		ImGui::PushStyleColor(ImGuiCol_Button, successColor);
 		ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25f, 0.75f, 0.25f, 1.0f));

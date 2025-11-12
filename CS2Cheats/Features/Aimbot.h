@@ -1,390 +1,170 @@
 #pragma once
-#include "../Core/Config.h"
-#include "../Game/Game.h"
-#include "../Game/Bone.h"
-#include "../Game/Entity.h"
-#include "../Helpers/Math.h"
-#include <Windows.h>
-#include <cmath>
 
-// Forward declaration for EntityResult
-struct EntityResult;
+#include <Windows.h>
+#include <vector>
+#include <map>
+#include "../Game/Entity.h"
+#include "../Core/Config.h"
+#include "../Core/Cheats.h"
+
+// Forward declarations instead of including implementation files
+namespace Render { class HealthBar; }
+namespace ESP { }
+namespace GUI { }
+
+// Trace masks for CS2
+#define MASK_SHOT 0x46004003
+#define CONTENTS_GRATE 0x00000001
+
+// Button constants
+#define IN_ATTACK (1 << 0)
+
+// CUserCmd structure for Silent Aim
+struct CUserCmd {
+    Vec3 viewangles;
+    int buttons;
+    int tick_count;
+    // Add other fields as needed
+};
 
 namespace Aimbot
 {
-    // Bone mapping for different body parts
-    enum class AimBone : int
-    {
-        Head = 0,
-        Neck = 1,
-        Chest = 2,
-        Stomach = 3,
-        Pelvis = 4,
-        Auto = 5  // Automatically choose best bone
+    // Initialize aimbot systems
+    bool Initialize();
+
+    // Bone IDs for targeting
+    enum BoneID {
+        HEAD = 6,
+        NECK = 5,
+        CHEST = 4,
+        STOMACH = 3,
+        PELVIS = 0
     };
 
-    // Target information structure
-    struct TargetInfo
-    {
-        CEntity entity;
-        Vec3 headPos;
-        Vec3 bodyPos;
-        float distance;
-        float fov;
-        bool isVisible;
-        AimBone bestBone;
+    // Hitbox IDs for advanced targeting
+    enum HitboxID {
+        HITBOX_HEAD = 0,
+        HITBOX_NECK = 1,
+        HITBOX_PELVIS = 2,
+        HITBOX_STOMACH = 3,
+        HITBOX_LOWER_CHEST = 4,
+        HITBOX_CHEST = 5,
+        HITBOX_UPPER_CHEST = 6,
+        HITBOX_LEFT_THIGH = 7,
+        HITBOX_RIGHT_THIGH = 8,
+        HITBOX_LEFT_CALF = 9,
+        HITBOX_RIGHT_CALF = 10,
+        HITBOX_LEFT_FOOT = 11,
+        HITBOX_RIGHT_FOOT = 12,
+        HITBOX_LEFT_HAND = 13,
+        HITBOX_RIGHT_HAND = 14,
+        HITBOX_LEFT_UPPER_ARM = 15,
+        HITBOX_LEFT_FOREARM = 16,
+        HITBOX_RIGHT_UPPER_ARM = 17,
+        HITBOX_RIGHT_FOREARM = 18
     };
 
-    // AutoFire modes
-    enum class AutoFireMode : int
-    {
-        Off = 0,
-        OnSight = 1,    // Fire when enemy is in sight
-        AutoAim = 2     // Fire when aiming at enemy
+    // Trace ray filter for visibility checks
+    struct Ray_t {
+        Vec3 start;
+        Vec3 delta;
+        Vec3 startOffset;
+        Vec3 extents;
+        bool isRay;
+        bool isSwept;
+        
+        Ray_t() : startOffset(0, 0, 0), extents(0, 0, 0), isRay(true), isSwept(false) {}
+        
+        void Init(Vec3 src, Vec3 end) {
+            start = src;
+            delta = end - src;
+            isSwept = (delta.x != 0 || delta.y != 0 || delta.z != 0);
+        }
     };
 
-    // Internal state
-    static bool isAimbotActive = false;
-    static bool wasKeyPressed = false;
-    static TargetInfo currentTarget;
-    static DWORD64 lastShootTime = 0;
-    static const DWORD SHOOT_DELAY = 100; // 100ms between shots
-
-    // Helper functions
-    Vec3 GetBonePosition(const CEntity& entity, AimBone bone)
-    {
-        Vec3 result = entity.Pawn.Pos;
-        const CBone& boneData = entity.Pawn.BoneData;
+    struct TraceFilter_t {
+        void* pSkip;
         
-        // Get bone index based on the requested bone
-        int boneIndex = -1;
-        switch (bone)
-        {
-        case AimBone::Head:
-            boneIndex = BONEINDEX::head;
-            break;
-        case AimBone::Neck:
-            boneIndex = BONEINDEX::neck_0;
-            break;
-        case AimBone::Chest:
-            boneIndex = BONEINDEX::spine_2; // Using spine_2 as chest
-            break;
-        case AimBone::Stomach:
-            boneIndex = BONEINDEX::spine_0; // Using spine_0 as stomach
-            break;
-        case AimBone::Pelvis:
-            boneIndex = BONEINDEX::pelvis;
-            break;
-        case AimBone::Auto:
-            // Try head first, then chest, then stomach
-            if (boneData.BonePosList.size() > BONEINDEX::head)
-                result = boneData.BonePosList[BONEINDEX::head].Pos;
-            else if (boneData.BonePosList.size() > BONEINDEX::spine_2)
-                result = boneData.BonePosList[BONEINDEX::spine_2].Pos;
-            else if (boneData.BonePosList.size() > BONEINDEX::spine_0)
-                result = boneData.BonePosList[BONEINDEX::spine_0].Pos;
-            return result;
-        }
+        TraceFilter_t(void* skip = nullptr) : pSkip(skip) {}
+    };
+
+    struct CGameTrace {
+        bool hit;
+        Vec3 endPos;
+        Vec3 planeNormal;
+        float fraction;
+        int hitbox;
+        int hitgroup;
+        void* hitEntity;
+        bool startSolid;
+        bool allSolid;
         
-        // Get the bone position if the index is valid
-        if (boneIndex != -1 && boneData.BonePosList.size() > boneIndex)
-        {
-            result = boneData.BonePosList[boneIndex].Pos;
-        }
+        CGameTrace() : hit(false), endPos(0, 0, 0), planeNormal(0, 0, 1), 
+                       fraction(1.0f), hitbox(-1), hitgroup(0), hitEntity(nullptr), 
+                       startSolid(false), allSolid(false) {}
+    };
 
-        return result;
-    }
+    // Get the best target based on FOV and other criteria
+    bool GetBestTarget(const CEntity& localPlayer, const std::vector<EntityResult>& entities, 
+                      Vec3& targetAngle, Vec3& targetPos, int& targetBone);
 
-    float CalculateFOV(const Vec2& viewAngle, const Vec3& targetPos, const Vec3& localPos)
-    {
-        Vec3 aimAngle = Math::CalcAngle(localPos, targetPos);
-        Vec2 deltaAngle = Vec2(aimAngle.x - viewAngle.x, aimAngle.y - viewAngle.y);
-        
-        // Normalize angles
-        while (deltaAngle.x > 180.0f) deltaAngle.x -= 360.0f;
-        while (deltaAngle.x < -180.0f) deltaAngle.x += 360.0f;
-        while (deltaAngle.y > 180.0f) deltaAngle.y -= 360.0f;
-        while (deltaAngle.y < -180.0f) deltaAngle.y += 360.0f;
-        
-        return sqrtf(deltaAngle.x * deltaAngle.x + deltaAngle.y * deltaAngle.y);
-    }
+    // Get the appropriate bone position based on configuration
+    Vec3 GetBonePosition(const CEntity& entity, int& outBone);
 
-    bool IsTargetValid(const CEntity& entity, const CEntity& localEntity, const Vec3& localPos, const Vec2& viewAngle)
-    {
-        // Team check
-        if (AimbotCFG::TeamCheck && entity.Controller.TeamID == localEntity.Controller.TeamID)
-            return false;
+    // Get hitbox position for advanced targeting
+    Vec3 GetHitboxPosition(const CEntity& entity, int hitbox, bool& isValid);
 
-        // Distance check
-        float distance = entity.Pawn.Pos.DistanceTo(localPos);
-        if (distance > AimbotCFG::MaxDistance * 100.0f)  // Convert to game units
-            return false;
+    // Real TraceLine implementation using engine trace
+    bool TraceRay(const Vec3& start, const Vec3& end, CGameTrace& trace, void* skipEntity = nullptr);
 
-        // FOV check
-        Vec3 targetPos = GetBonePosition(entity, Aimbot::AimBone::Head);
-        float fov = CalculateFOV(viewAngle, targetPos, localPos);
-        if (fov > AimbotCFG::FOVRadius)
-            return false;
+    // Check if target is visible using real trace line
+    bool IsTargetVisible(const CEntity& localPlayer, const CEntity& target, const Vec3& targetPos);
 
-        // Visible check
-        if (AimbotCFG::VisibleCheck && entity.Pawn.bSpottedByMask == 0)
-            return false;
+    // Legacy visibility check for compatibility
+    bool IsTargetVisibleLegacy(const CEntity& localPlayer, const CEntity& target, const Vec3& targetPos);
 
-        return true;
-    }
+    // Fallback trace implementation
+    bool TraceRayFallback(const Vec3& start, const Vec3& end, CGameTrace& trace, void* skipEntity);
 
-    AimBone GetBestBone(const CEntity& entity)
-    {
-        if (AimbotCFG::TargetHeadOnly || AimbotCFG::HeadOnly)
-            return AimBone::Head;
+    // Apply ping prediction to target position
+    Vec3 ApplyPingPrediction(const Vec3& targetPos, const Vec3& targetVelocity, float predictionAmount);
 
-        // Use configured bone selection
-        switch (AimbotCFG::AimBone)
-        {
-        case 0: return AimBone::Head;
-        case 1: return AimBone::Neck;
-        case 2: return AimBone::Chest;
-        case 3: return AimBone::Stomach;
-        case 4: return AimBone::Pelvis;
-        case 5: return AimBone::Auto;
-        default: return AimBone::Head;
-        }
-    }
+    // Resolver for anti-aim techniques
+    Vec3 ResolveTarget(const CEntity& localPlayer, const CEntity& entity, const Vec3& originalPos);
 
-    TargetInfo FindBestTarget(const CEntity& localEntity, const std::vector<EntityResult>& entities)
-    {
-        TargetInfo bestTarget{};
-        bestTarget.fov = 999999.0f;
-        
-        Vec3 localPos = localEntity.Pawn.Pos;
-        Vec3 viewAngle = Vec3(localEntity.Pawn.ViewAngle.x, localEntity.Pawn.ViewAngle.y, 0.0f);
+    // Get velocity from entity
+    Vec3 GetVelocity(const CEntity& entity);
 
-        for (const auto& result : entities)
-        {
-            if (!result.isValid || !result.entity.IsAlive())
-                continue;
+    // Normalize angle helper
+    float NormalizeAngle(float angle);
 
-            const CEntity& entity = result.entity;
+    // Calculate aim angle to target
+    Vec3 CalculateAngle(const Vec3& source, const Vec3& destination);
 
-            Vec2 viewAngle2D(viewAngle.x, viewAngle.y);
-            if (!IsTargetValid(entity, localEntity, localPos, viewAngle2D))
-                continue;
+    // Apply smoothing to aim
+    Vec3 ApplySmoothing(const Vec3& currentAngle, const Vec3& targetAngle, float smoothFactor);
 
-            // Get target positions for different bones
-            Vec3 headPos = GetBonePosition(entity, AimBone::Head);
-            Vec3 bodyPos = GetBonePosition(entity, AimBone::Chest);
-            
-            float distance = entity.Pawn.Pos.DistanceTo(localPos);
-            Vec2 viewAngle2D2(viewAngle.x, viewAngle.y);
-            float headFOV = CalculateFOV(viewAngle2D2, headPos, localPos);
-            float bodyFOV = CalculateFOV(viewAngle2D2, bodyPos, localPos);
-            
-            // Check if we should stop when no head is in radius
-            if (AimbotCFG::StopWhenNoHead && headFOV > AimbotCFG::FOVRadius)
-                continue;
-            
-            // Choose best bone based on FOV and settings
-            float bestFOV = headFOV;
-            AimBone bestBone = AimBone::Head;
-            
-            if (bodyFOV < bestFOV && !AimbotCFG::HeadOnly && !AimbotCFG::TargetHeadOnly)
-            {
-                bestFOV = bodyFOV;
-                bestBone = AimBone::Chest;
-            }
+    // Apply recoil control
+    Vec3 ApplyRecoilControl(const Vec3& aimAngle, const CEntity& localPlayer);
 
-            // Update best target if this one is better
-            if (bestFOV < bestTarget.fov)
-            {
-                bestTarget.entity = entity;
-                bestTarget.headPos = headPos;
-                bestTarget.bodyPos = bodyPos;
-                bestTarget.distance = distance;
-                bestTarget.fov = bestFOV;
-                bestTarget.isVisible = (entity.Pawn.bSpottedByMask != 0);
-                bestTarget.bestBone = bestBone;
-            }
-        }
+    // Check if aimbot key is pressed based on toggle/hold mode
+    bool IsAimbotKeyActive();
 
-        return bestTarget;
-    }
+    // Toggle aimbot state when in toggle mode
+    void ToggleAimbot();
 
-    void AimAtTarget(const CEntity& localEntity, const TargetInfo& target)
-    {
-        if (target.entity.Controller.Address == 0)
-            return;
+    // Handle auto-fire functionality
+    void HandleAutoFire(CUserCmd* cmd, bool targetAcquired, const Vec3& targetPos);
 
-        Vec3 targetPos = GetBonePosition(target.entity, target.bestBone);
-        
-        // Predict movement if enabled
-        if (AimbotCFG::PredictMovement && g_globalVars)
-        {
-            Vec3 targetVelocity = {0, 0, 0};
-            float interval = 1.0f / 64.0f * 2.0f;
-            targetPos.x += targetVelocity.x * interval;
-            targetPos.y += targetVelocity.y * interval;
-            targetPos.z += targetVelocity.z * interval;
-        }
+    // CreateMove hook for silent aim and triggerbot
+    bool CreateMove(float* inputX, float* inputY, bool* inAttack);
 
-        Vec3 localPos = localEntity.Pawn.Pos;
-        Vec3 aimAngle = Math::CalcAngle(localPos, targetPos);
+    // Main aimbot function
+    void Run(CUserCmd* cmd, const CEntity& localPlayer, const std::vector<EntityResult>& entities);
 
-        // Apply RCS if enabled
-        if (AimbotCFG::RCS)
-        {
-            Vec2 aimPunch = localEntity.Pawn.AimPunchAngle;
-            aimAngle.x -= aimPunch.x * AimbotCFG::RCSStrength;
-            aimAngle.y -= aimPunch.y * AimbotCFG::RCSStrength;
-        }
+    // Draw FOV circle
+    void DrawFOV(const CEntity& localPlayer);
 
-        // Smooth aim if enabled
-        if (AimbotCFG::SmoothAim)
-        {
-            Vec3 currentAngle = Vec3(localEntity.Pawn.ViewAngle.x, localEntity.Pawn.ViewAngle.y, 0.0f);
-            Vec3 deltaAngle;
-            deltaAngle.x = aimAngle.x - currentAngle.x;
-            deltaAngle.y = aimAngle.y - currentAngle.y;
-            deltaAngle.z = aimAngle.z - currentAngle.z;
-            
-            // Normalize delta
-            while (deltaAngle.x > 180.0f) deltaAngle.x -= 360.0f;
-            while (deltaAngle.x < -180.0f) deltaAngle.x += 360.0f;
-            while (deltaAngle.y > 180.0f) deltaAngle.y -= 360.0f;
-            while (deltaAngle.y < -180.0f) deltaAngle.y += 360.0f;
-            
-            // Apply smoothing
-            float smoothFactor = 1.0f - AimbotCFG::SmoothValue;
-            aimAngle.x = currentAngle.x + deltaAngle.x * smoothFactor;
-            aimAngle.y = currentAngle.y + deltaAngle.y * smoothFactor;
-        }
-
-        // Apply aim angles - both silent and regular aim write to the same address
-        memoryManager.WriteMemory(localEntity.Pawn.Address + Offset.Pawn.angEyeAngles, aimAngle);
-    }
-
-    void AutoFire(const CEntity& localEntity, const TargetInfo& target)
-    {
-        if (AimbotCFG::AutoFireMode == static_cast<int>(AutoFireMode::Off))
-            return;
-
-        DWORD currentTime = GetTickCount64();
-        if (currentTime - lastShootTime < SHOOT_DELAY)
-            return;
-
-        bool shouldFire = false;
-
-        if (AimbotCFG::AutoFireMode == static_cast<int>(AutoFireMode::OnSight))
-        {
-            // Fire when enemy is visible and in FOV
-            shouldFire = target.isVisible && target.fov <= AimbotCFG::FOVRadius;
-        }
-        else if (AimbotCFG::AutoFireMode == static_cast<int>(AutoFireMode::AutoAim))
-        {
-            // Fire when aiming at enemy
-            shouldFire = target.entity.Controller.Address != 0 && target.fov <= 5.0f;
-        }
-
-        if (shouldFire)
-        {
-            // Simulate mouse click
-            mouse_event(MOUSEEVENTF_LEFTDOWN, 0, 0, 0, 0);
-            Sleep(10);
-            mouse_event(MOUSEEVENTF_LEFTUP, 0, 0, 0, 0);
-            lastShootTime = currentTime;
-        }
-    }
-
-    void Run(const CEntity& localEntity, const std::vector<EntityResult>& entities)
-    {
-        if (!AimbotCFG::AimbotEnabled)
-        {
-            currentTarget = {};
-            return;
-        }
-
-        // Check aimbot key
-        bool keyPressed = (GetAsyncKeyState(AimbotCFG::AimbotKey) & 0x8000) != 0;
-        
-        // Toggle mode handling
-        if (AimbotCFG::ToggleMode)
-        {
-            if (keyPressed && !wasKeyPressed)
-            {
-                isAimbotActive = !isAimbotActive;
-            }
-        }
-        else
-        {
-            isAimbotActive = keyPressed;
-        }
-        
-        wasKeyPressed = keyPressed;
-
-        if (!isAimbotActive)
-        {
-            currentTarget = {};
-            return;
-        }
-
-        // Find best target
-        TargetInfo newTarget = FindBestTarget(localEntity, entities);
-        
-        // Update current target if we found a better one or lost the old one
-        if (newTarget.entity.Controller.Address != 0 && 
-            (currentTarget.entity.Controller.Address == 0 || newTarget.fov < currentTarget.fov))
-        {
-            currentTarget = newTarget;
-        }
-        else if (currentTarget.entity.Controller.Address != 0)
-        {
-            // Check if current target is still valid
-            Vec2 viewAngle2D(localEntity.Pawn.ViewAngle.x, localEntity.Pawn.ViewAngle.y);
-            if (!IsTargetValid(currentTarget.entity, localEntity, localEntity.Pawn.Pos, viewAngle2D))
-            {
-                currentTarget = {};
-            }
-        }
-
-        // Aim at current target
-        if (currentTarget.entity.Controller.Address != 0)
-        {
-            AimAtTarget(localEntity, currentTarget);
-            AutoFire(localEntity, currentTarget);
-        }
-    }
-
-    void DrawFOV(const CEntity& localEntity)
-    {
-        if (!AimbotCFG::ShowFov || !AimbotCFG::AimbotEnabled)
-            return;
-
-        if (localEntity.Controller.TeamID == 0)
-            return;
-
-        ImDrawList* drawList = ImGui::GetBackgroundDrawList();
-        if (!drawList)
-            return;
-
-        // Get screen center
-        ImVec2 screenSize = ImGui::GetIO().DisplaySize;
-        ImVec2 screenCenter(screenSize.x / 2.0f, screenSize.y / 2.0f);
-
-        // Calculate FOV circle radius based on game FOV
-        float fovPixels = (screenSize.y / 90.0f) * AimbotCFG::FOVRadius;
-
-        // Draw FOV circle
-        ImColor fovColor = ImColor(1.0f, 0.0f, 0.0f, 0.5f);
-        drawList->AddCircle(screenCenter, fovPixels, fovColor, 64, AimbotCFG::FOVCircleThickness);
-
-        // Draw filled circle with transparency if DrawAimbotFOV is enabled
-        if (AimbotCFG::DrawAimbotFOV)
-        {
-            ImColor fovFillColor = ImColor(AimbotCFG::FOVCircleColor.Value.x, AimbotCFG::FOVCircleColor.Value.y, AimbotCFG::FOVCircleColor.Value.z, 0.2f);
-            drawList->AddCircleFilled(screenCenter, fovPixels, fovFillColor, 64);
-        }
-    }
-
-    // Get current aimbot status for GUI
-    bool IsAimbotActive() { return isAimbotActive; }
-    TargetInfo GetCurrentTarget() { return currentTarget; }
+    // Angle clamping helper
+    void ClampAngle(Vec3& angle);
 }

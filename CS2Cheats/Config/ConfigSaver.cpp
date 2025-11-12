@@ -22,88 +22,88 @@ namespace MyConfigSaver
         ConfigData["0"]["Version"] = MenuConfig::version;
         ConfigData["0"]["Author"] = author;
 
-        ConfigData["ESP"]["Hotkey"] =               ESPConfig::HotKey;
-        ConfigData["ESP"]["Enable"]=                ESPConfig::ESPenabled;
-        ConfigData["ESP"]["BoneESP"]=               ESPConfig::ShowBoneESP;
-        ConfigData["ESP"]["BoxESP"]=                ESPConfig::ShowBoxESP;
-        ConfigData["ESP"]["BoxType"]=               ESPConfig::BoxType;
-        ConfigData["ESP"]["SnapLine"]=              ESPConfig::ShowLineToEnemy;
-        ConfigData["ESP"]["LinePos"]=               ESPConfig::LinePos;
-        ConfigData["ESP"]["HealthBar"]=             ESPConfig::ShowHealthBar;
-        ConfigData["ESP"]["AmmoBar"]=               ESPConfig::AmmoBar;
-        ConfigData["ESP"]["WeaponESP"]=             ESPConfig::ShowWeaponESP;
-        ConfigData["ESP"]["WeaponInfo"]=            ESPConfig::ShowWeaponInfo;
-        ConfigData["ESP"]["ShowBombCarrier"]=       ESPConfig::ShowBombCarrier;
-        ConfigData["ESP"]["ShowArmorBar"]=           ESPConfig::ShowArmorBar;
-        ConfigData["ESP"]["EyeRay"]=                ESPConfig::ShowEyeRay;
-        ConfigData["ESP"]["PlayerName"]=            ESPConfig::ShowPlayerName;
-        ConfigData["ESP"]["DistanceESP"]=           ESPConfig::ShowDistance;
-        ConfigData["ESP"]["HealthNum"]=             ESPConfig::ShowHealthNum;
-        ConfigData["ESP"]["HeadBox"]=               ESPConfig::ShowHeadBox;
-        ConfigData["ESP"]["Preview"]=               ESPConfig::ShowPreview;
-        ConfigData["ESP"]["VisCheck"]=              ESPConfig::VisibleCheck;
-        ConfigData["ESP"]["FilledBox"]=             ESPConfig::FilledBox;
-        ConfigData["ESP"]["FilledVisBox"]=          ESPConfig::FilledVisBox;
-        ConfigData["ESP"]["MultiColor"]=            ESPConfig::MultiColor;
-        ConfigData["ESP"]["OutLine"]=               ESPConfig::OutLine;
-        ConfigData["ESP"]["BoxRounding"]=           ESPConfig::BoxRounding;
-        ConfigData["ESP"]["ShowScoped"]=            ESPConfig::ShowIsScoped;
-        ConfigData["ESP"]["ShowBlind"]=             ESPConfig::ShowIsBlind;
-        ConfigData["ESP"]["DisableFlashed"] =       ESPConfig::FlashCheck;
-        ConfigData["ESP"]["ArmorBar"]=              ESPConfig::ArmorBar;
-        ConfigData["ESP"]["ArmorNum"]=              ESPConfig::ShowArmorNum;
+        ConfigData["ESP"]["Hotkey"] = ESPConfig::HotKey;
+        ConfigData["ESP"]["Enable"]= ESPConfig::ESPenabled;
+        ConfigData["ESP"]["BoneESP"]= ESPConfig::ShowBoneESP;
+        ConfigData["ESP"]["BoxESP"]= ESPConfig::ShowBoxESP;
+        ConfigData["ESP"]["BoxType"]= ESPConfig::BoxType;
+        ConfigData["ESP"]["SnapLine"]= ESPConfig::ShowLineToEnemy;
+        ConfigData["ESP"]["LinePos"]= ESPConfig::LinePos;
+        ConfigData["ESP"]["HealthBar"]= ESPConfig::ShowHealthBar;
+        ConfigData["ESP"]["AmmoBar"]= ESPConfig::AmmoBar;
+        ConfigData["ESP"]["WeaponESP"]= ESPConfig::ShowWeaponESP;
+        ConfigData["ESP"]["WeaponInfo"]= ESPConfig::ShowWeaponInfo;
+        ConfigData["ESP"]["ShowBombCarrier"]= ESPConfig::ShowBombCarrier;
+        ConfigData["ESP"]["ShowArmorBar"]= ESPConfig::ShowArmorBar;
+        ConfigData["ESP"]["EyeRay"]= ESPConfig::ShowEyeRay;
+        ConfigData["ESP"]["PlayerName"]= ESPConfig::ShowPlayerName;
+        ConfigData["ESP"]["DistanceESP"]= ESPConfig::ShowDistance;
+        ConfigData["ESP"]["HealthNum"]= ESPConfig::ShowHealthNum;
+        ConfigData["ESP"]["HeadBox"]= ESPConfig::ShowHeadBox;
+        ConfigData["ESP"]["Preview"]= ESPConfig::ShowPreview;
+        ConfigData["ESP"]["VisCheck"]= ESPConfig::VisibleCheck;
+        ConfigData["ESP"]["FilledBox"]= ESPConfig::FilledBox;
+        ConfigData["ESP"]["FilledVisBox"]= ESPConfig::FilledVisBox;
+        ConfigData["ESP"]["MultiColor"]= ESPConfig::MultiColor;
+        ConfigData["ESP"]["OutLine"]= ESPConfig::OutLine;
+        ConfigData["ESP"]["BoxRounding"]= ESPConfig::BoxRounding;
+        ConfigData["ESP"]["ShowScoped"]= ESPConfig::ShowIsScoped;
+        ConfigData["ESP"]["ShowBlind"]= ESPConfig::ShowIsBlind;
+        ConfigData["ESP"]["DisableFlashed"] = ESPConfig::FlashCheck;
+        ConfigData["ESP"]["ArmorBar"]= ESPConfig::ArmorBar;
+        ConfigData["ESP"]["ArmorNum"]= ESPConfig::ShowArmorNum;
 
-        ConfigData["ESP"]["BoneColor"]["r"]=        ESPConfig::BoneColor.Value.x;
-        ConfigData["ESP"]["BoneColor"]["g"]=        ESPConfig::BoneColor.Value.y;
-        ConfigData["ESP"]["BoneColor"]["b"]=        ESPConfig::BoneColor.Value.z;
-        ConfigData["ESP"]["BoneColor"]["a"]=        ESPConfig::BoneColor.Value.w;
+        ConfigData["ESP"]["BoneColor"]["r"]= ESPConfig::BoneColor.Value.x;
+        ConfigData["ESP"]["BoneColor"]["g"]= ESPConfig::BoneColor.Value.y;
+        ConfigData["ESP"]["BoneColor"]["b"]= ESPConfig::BoneColor.Value.z;
+        ConfigData["ESP"]["BoneColor"]["a"]= ESPConfig::BoneColor.Value.w;
 
-        ConfigData["ESP"]["BoxColor"]["r"]=         ESPConfig::BoxColor.Value.x;
-        ConfigData["ESP"]["BoxColor"]["g"]=         ESPConfig::BoxColor.Value.y;
-        ConfigData["ESP"]["BoxColor"]["b"]=         ESPConfig::BoxColor.Value.z;
-        ConfigData["ESP"]["BoxColor"]["a"]=         ESPConfig::BoxColor.Value.w;
+        ConfigData["ESP"]["BoxColor"]["r"]= ESPConfig::BoxColor.Value.x;
+        ConfigData["ESP"]["BoxColor"]["g"]= ESPConfig::BoxColor.Value.y;
+        ConfigData["ESP"]["BoxColor"]["b"]= ESPConfig::BoxColor.Value.z;
+        ConfigData["ESP"]["BoxColor"]["a"]= ESPConfig::BoxColor.Value.w;
 
-        ConfigData["ESP"]["SnapLineColor"]["r"]=    ESPConfig::LineToEnemyColor.Value.x;
-        ConfigData["ESP"]["SnapLineColor"]["g"]=    ESPConfig::LineToEnemyColor.Value.y;
-        ConfigData["ESP"]["SnapLineColor"]["b"]=    ESPConfig::LineToEnemyColor.Value.z;
-        ConfigData["ESP"]["SnapLineColor"]["a"]=    ESPConfig::LineToEnemyColor.Value.w;
+        ConfigData["ESP"]["SnapLineColor"]["r"]= ESPConfig::LineToEnemyColor.Value.x;
+        ConfigData["ESP"]["SnapLineColor"]["g"]= ESPConfig::LineToEnemyColor.Value.y;
+        ConfigData["ESP"]["SnapLineColor"]["b"]= ESPConfig::LineToEnemyColor.Value.z;
+        ConfigData["ESP"]["SnapLineColor"]["a"]= ESPConfig::LineToEnemyColor.Value.w;
 
-        ConfigData["ESP"]["EyeRayColor"]["r"]=      ESPConfig::EyeRayColor.Value.x;
-        ConfigData["ESP"]["EyeRayColor"]["g"]=      ESPConfig::EyeRayColor.Value.y;
-        ConfigData["ESP"]["EyeRayColor"]["b"]=      ESPConfig::EyeRayColor.Value.z;
-        ConfigData["ESP"]["EyeRayColor"]["a"]=      ESPConfig::EyeRayColor.Value.w;
+        ConfigData["ESP"]["EyeRayColor"]["r"]= ESPConfig::EyeRayColor.Value.x;
+        ConfigData["ESP"]["EyeRayColor"]["g"]= ESPConfig::EyeRayColor.Value.y;
+        ConfigData["ESP"]["EyeRayColor"]["b"]= ESPConfig::EyeRayColor.Value.z;
+        ConfigData["ESP"]["EyeRayColor"]["a"]= ESPConfig::EyeRayColor.Value.w;
 
-        ConfigData["ESP"]["HeadBoxColor"]["r"]=     ESPConfig::HeadBoxColor.Value.x;
-        ConfigData["ESP"]["HeadBoxColor"]["g"]=     ESPConfig::HeadBoxColor.Value.y;
-        ConfigData["ESP"]["HeadBoxColor"]["b"]=     ESPConfig::HeadBoxColor.Value.z;
-        ConfigData["ESP"]["HeadBoxColor"]["a"]=     ESPConfig::HeadBoxColor.Value.w;
+        ConfigData["ESP"]["HeadBoxColor"]["r"]= ESPConfig::HeadBoxColor.Value.x;
+        ConfigData["ESP"]["HeadBoxColor"]["g"]= ESPConfig::HeadBoxColor.Value.y;
+        ConfigData["ESP"]["HeadBoxColor"]["b"]= ESPConfig::HeadBoxColor.Value.z;
+        ConfigData["ESP"]["HeadBoxColor"]["a"]= ESPConfig::HeadBoxColor.Value.w;
         
-        ConfigData["ESP"]["VisibleColor"]["r"]=     ESPConfig::VisibleColor.Value.x;
-        ConfigData["ESP"]["VisibleColor"]["g"]=     ESPConfig::VisibleColor.Value.y;
-        ConfigData["ESP"]["VisibleColor"]["b"]=     ESPConfig::VisibleColor.Value.z;
-        ConfigData["ESP"]["VisibleColor"]["a"]=     ESPConfig::VisibleColor.Value.w;
+        ConfigData["ESP"]["VisibleColor"]["r"]= ESPConfig::VisibleColor.Value.x;
+        ConfigData["ESP"]["VisibleColor"]["g"]= ESPConfig::VisibleColor.Value.y;
+        ConfigData["ESP"]["VisibleColor"]["b"]= ESPConfig::VisibleColor.Value.z;
+        ConfigData["ESP"]["VisibleColor"]["a"]= ESPConfig::VisibleColor.Value.w;
 
-        ConfigData["ESP"]["FilledColor"]["r"]=      ESPConfig::FilledColor.Value.x;
-        ConfigData["ESP"]["FilledColor"]["g"]=      ESPConfig::FilledColor.Value.y;
-        ConfigData["ESP"]["FilledColor"]["b"]=      ESPConfig::FilledColor.Value.z;
-        ConfigData["ESP"]["FilledColor"]["a"]=      ESPConfig::FilledColor.Value.w;
+        ConfigData["ESP"]["FilledColor"]["r"]= ESPConfig::FilledColor.Value.x;
+        ConfigData["ESP"]["FilledColor"]["g"]= ESPConfig::FilledColor.Value.y;
+        ConfigData["ESP"]["FilledColor"]["b"]= ESPConfig::FilledColor.Value.z;
+        ConfigData["ESP"]["FilledColor"]["a"]= ESPConfig::FilledColor.Value.w;
 
-        ConfigData["ESP"]["FilledColor2"]["r"]=     ESPConfig::FilledColor2.Value.x;
-        ConfigData["ESP"]["FilledColor2"]["g"]=     ESPConfig::FilledColor2.Value.y;
-        ConfigData["ESP"]["FilledColor2"]["b"]=     ESPConfig::FilledColor2.Value.z;
-        ConfigData["ESP"]["FilledColor2"]["a"]=     ESPConfig::FilledColor2.Value.w;
+        ConfigData["ESP"]["FilledColor2"]["r"]= ESPConfig::FilledColor2.Value.x;
+        ConfigData["ESP"]["FilledColor2"]["g"]= ESPConfig::FilledColor2.Value.y;
+        ConfigData["ESP"]["FilledColor2"]["b"]= ESPConfig::FilledColor2.Value.z;
+        ConfigData["ESP"]["FilledColor2"]["a"]= ESPConfig::FilledColor2.Value.w;
 
-        ConfigData["ESP"]["FilledVisColor"]["r"]=   ESPConfig::BoxFilledVisColor.Value.x;
-        ConfigData["ESP"]["FilledVisColor"]["g"]=   ESPConfig::BoxFilledVisColor.Value.y;
-        ConfigData["ESP"]["FilledVisColor"]["b"]=   ESPConfig::BoxFilledVisColor.Value.z;
-        ConfigData["ESP"]["FilledVisColor"]["a"]=   ESPConfig::BoxFilledVisColor.Value.w;
+        ConfigData["ESP"]["FilledVisColor"]["r"]= ESPConfig::BoxFilledVisColor.Value.x;
+        ConfigData["ESP"]["FilledVisColor"]["g"]= ESPConfig::BoxFilledVisColor.Value.y;
+        ConfigData["ESP"]["FilledVisColor"]["b"]= ESPConfig::BoxFilledVisColor.Value.z;
+        ConfigData["ESP"]["FilledVisColor"]["a"]= ESPConfig::BoxFilledVisColor.Value.w;
 
-        ConfigData["ESP"]["OutOfFOVArrow"]=         ESPConfig::ShowOutOfFOVArrow;
-        ConfigData["ESP"]["OutOfFOVRadius"]=        ESPConfig::OutOfFOVRadiusFactor;
-        ConfigData["ESP"]["OutOfFOVColor"]["r"]=    ESPConfig::OutOfFOVArrowColor.Value.x;
-        ConfigData["ESP"]["OutOfFOVColor"]["g"]=    ESPConfig::OutOfFOVArrowColor.Value.y;
-        ConfigData["ESP"]["OutOfFOVColor"]["b"]=    ESPConfig::OutOfFOVArrowColor.Value.z;
-        ConfigData["ESP"]["OutOfFOVColor"]["a"]=    ESPConfig::OutOfFOVArrowColor.Value.w;
+        ConfigData["ESP"]["OutOfFOVArrow"]= ESPConfig::ShowOutOfFOVArrow;
+        ConfigData["ESP"]["OutOfFOVRadius"]= ESPConfig::OutOfFOVRadiusFactor;
+        ConfigData["ESP"]["OutOfFOVColor"]["r"]= ESPConfig::OutOfFOVArrowColor.Value.x;
+        ConfigData["ESP"]["OutOfFOVColor"]["g"]= ESPConfig::OutOfFOVArrowColor.Value.y;
+        ConfigData["ESP"]["OutOfFOVColor"]["b"]= ESPConfig::OutOfFOVArrowColor.Value.z;
+        ConfigData["ESP"]["OutOfFOVColor"]["a"]= ESPConfig::OutOfFOVArrowColor.Value.w;
 
         ConfigData["ESP"]["EnemySound"] = ESPConfig::EnemySound;
         ConfigData["ESP"]["EnemySoundColor"]["r"] = ESPConfig::EnemySoundColor.Value.x;
@@ -111,6 +111,43 @@ namespace MyConfigSaver
         ConfigData["ESP"]["EnemySoundColor"]["b"] = ESPConfig::EnemySoundColor.Value.z;
         ConfigData["ESP"]["EnemySoundColor"]["a"] = ESPConfig::EnemySoundColor.Value.w;
 
+        ConfigData["Aimbot"]["TriggerBot"] = AimbotCFG::AimbotCFG.TriggerBot;
+        ConfigData["Aimbot"]["TriggerDelay"] = AimbotCFG::AimbotCFG.TriggerDelay;
+        
+        // Advanced aimbot settings
+        ConfigData["Aimbot"]["AimbotEnabled"] = AimbotCFG::AimbotCFG.AimbotEnabled;
+        ConfigData["Aimbot"]["ToggleMode"] = AimbotCFG::AimbotCFG.ToggleMode;
+        ConfigData["Aimbot"]["AimbotKey"] = AimbotCFG::AimbotCFG.AimbotKey;
+        ConfigData["Aimbot"]["SilentAim"] = AimbotCFG::AimbotCFG.SilentAim;
+        ConfigData["Aimbot"]["FOVRadius"] = AimbotCFG::AimbotCFG.FOVRadius;
+        ConfigData["Aimbot"]["ShowFov"] = AimbotCFG::AimbotCFG.ShowFov;
+        ConfigData["Aimbot"]["FOVCircleColor"]["r"] = (AimbotCFG::AimbotCFG.FOVCircleColor >> IM_COL32_R_SHIFT) & 0xFF;
+        ConfigData["Aimbot"]["FOVCircleColor"]["g"] = (AimbotCFG::AimbotCFG.FOVCircleColor >> IM_COL32_G_SHIFT) & 0xFF;
+        ConfigData["Aimbot"]["FOVCircleColor"]["b"] = (AimbotCFG::AimbotCFG.FOVCircleColor >> IM_COL32_B_SHIFT) & 0xFF;
+        ConfigData["Aimbot"]["FOVCircleColor"]["a"] = (AimbotCFG::AimbotCFG.FOVCircleColor >> IM_COL32_A_SHIFT) & 0xFF;
+        ConfigData["Aimbot"]["FOVCircleThickness"] = AimbotCFG::AimbotCFG.FOVCircleThickness;
+        ConfigData["Aimbot"]["VisibleCheck"] = AimbotCFG::AimbotCFG.VisibleCheck;
+        ConfigData["Aimbot"]["TeamCheck"] = AimbotCFG::AimbotCFG.TeamCheck;
+        ConfigData["Aimbot"]["MaxDistance"] = AimbotCFG::AimbotCFG.MaxDistance;
+        ConfigData["Aimbot"]["AimBone"] = AimbotCFG::AimbotCFG.AimBone;
+        ConfigData["Aimbot"]["TargetHeadOnly"] = AimbotCFG::AimbotCFG.TargetHeadOnly;
+        ConfigData["Aimbot"]["StopWhenNoHead"] = AimbotCFG::AimbotCFG.StopWhenNoHead;
+        ConfigData["Aimbot"]["SmoothAim"] = AimbotCFG::AimbotCFG.SmoothAim;
+        ConfigData["Aimbot"]["SmoothValue"] = AimbotCFG::AimbotCFG.SmoothValue;
+        ConfigData["Aimbot"]["RCS"] = AimbotCFG::AimbotCFG.RCS;
+        ConfigData["Aimbot"]["RCSStrength"] = AimbotCFG::AimbotCFG.RCSStrength;
+        ConfigData["Aimbot"]["Sensitivity"] = AimbotCFG::AimbotCFG.Sensitivity;
+        ConfigData["Aimbot"]["AutoFireMode"] = AimbotCFG::AimbotCFG.AutoFireMode;
+        ConfigData["Aimbot"]["RealTraceLine"] = AimbotCFG::AimbotCFG.RealTraceLine;
+        ConfigData["Aimbot"]["PingPrediction"] = AimbotCFG::AimbotCFG.PingPrediction;
+        ConfigData["Aimbot"]["PingPredictionAmount"] = AimbotCFG::AimbotCFG.PingPredictionAmount;
+        ConfigData["Aimbot"]["HitboxBasedTargeting"] = AimbotCFG::AimbotCFG.HitboxBasedTargeting;
+        ConfigData["Aimbot"]["HitboxPriority"] = AimbotCFG::AimbotCFG.HitboxPriority;
+        ConfigData["Aimbot"]["ResolverEnabled"] = AimbotCFG::AimbotCFG.ResolverEnabled;
+        ConfigData["Aimbot"]["ResolverMode"] = AimbotCFG::AimbotCFG.ResolverMode;
+        ConfigData["Aimbot"]["CreateMoveHook"] = AimbotCFG::AimbotCFG.CreateMoveHook;
+        ConfigData["Aimbot"]["SilentAimInCreateMove"] = AimbotCFG::AimbotCFG.SilentAimInCreateMove;
+        ConfigData["Aimbot"]["TriggerBotInCreateMove"] = AimbotCFG::AimbotCFG.TriggerBotInCreateMove;
 
         //ConfigData["Crosshairs"]["Enable"]=        CrosshairsCFG::ShowCrossHair;
         //ConfigData["Crosshairs"]["Size"]=          CrosshairsCFG::CrossHairSize;
@@ -378,6 +415,53 @@ namespace MyConfigSaver
         //    CrosshairsCFG::TargetedColor.Value.w = ReadData(ConfigData["Crosshairs"], { "TargetedColor","a" }, 0.f);
 
         //}
+
+        if (ConfigData.contains("Aimbot"))
+        {
+            AimbotCFG::AimbotCFG.TriggerBot = ReadData(ConfigData["Aimbot"], { "TriggerBot" }, false);
+            AimbotCFG::AimbotCFG.TriggerDelay = ReadData(ConfigData["Aimbot"], { "TriggerDelay" }, 50);
+            
+            // Advanced aimbot settings
+            AimbotCFG::AimbotCFG.AimbotEnabled = ReadData(ConfigData["Aimbot"], { "AimbotEnabled" }, false);
+            AimbotCFG::AimbotCFG.ToggleMode = ReadData(ConfigData["Aimbot"], { "ToggleMode" }, false);
+            AimbotCFG::AimbotCFG.AimbotKey = ReadData(ConfigData["Aimbot"], { "AimbotKey" }, VK_RBUTTON);
+            AimbotCFG::AimbotCFG.SilentAim = ReadData(ConfigData["Aimbot"], { "SilentAim" }, false);
+            AimbotCFG::AimbotCFG.FOVRadius = ReadData(ConfigData["Aimbot"], { "FOVRadius" }, 120.0f);
+            AimbotCFG::AimbotCFG.ShowFov = ReadData(ConfigData["Aimbot"], { "ShowFov" }, true);
+            
+            // Reconstruct FOV circle color from RGBA components
+            ImU32 fovColor = ImColor(
+                ReadData(ConfigData["Aimbot"], { "FOVCircleColor", "r" }, 255),
+                ReadData(ConfigData["Aimbot"], { "FOVCircleColor", "g" }, 255),
+                ReadData(ConfigData["Aimbot"], { "FOVCircleColor", "b" }, 255),
+                ReadData(ConfigData["Aimbot"], { "FOVCircleColor", "a" }, 180)
+            );
+            AimbotCFG::AimbotCFG.FOVCircleColor = fovColor;
+            
+            AimbotCFG::AimbotCFG.FOVCircleThickness = ReadData(ConfigData["Aimbot"], { "FOVCircleThickness" }, 1.0f);
+            AimbotCFG::AimbotCFG.VisibleCheck = ReadData(ConfigData["Aimbot"], { "VisibleCheck" }, true);
+            AimbotCFG::AimbotCFG.TeamCheck = ReadData(ConfigData["Aimbot"], { "TeamCheck" }, true);
+            AimbotCFG::AimbotCFG.MaxDistance = ReadData(ConfigData["Aimbot"], { "MaxDistance" }, 5000.0f);
+            AimbotCFG::AimbotCFG.AimBone = ReadData(ConfigData["Aimbot"], { "AimBone" }, 0);
+            AimbotCFG::AimbotCFG.TargetHeadOnly = ReadData(ConfigData["Aimbot"], { "TargetHeadOnly" }, false);
+            AimbotCFG::AimbotCFG.StopWhenNoHead = ReadData(ConfigData["Aimbot"], { "StopWhenNoHead" }, false);
+            AimbotCFG::AimbotCFG.SmoothAim = ReadData(ConfigData["Aimbot"], { "SmoothAim" }, true);
+            AimbotCFG::AimbotCFG.SmoothValue = ReadData(ConfigData["Aimbot"], { "SmoothValue" }, 0.5f);
+            AimbotCFG::AimbotCFG.RCS = ReadData(ConfigData["Aimbot"], { "RCS" }, true);
+            AimbotCFG::AimbotCFG.RCSStrength = ReadData(ConfigData["Aimbot"], { "RCSStrength" }, 1.0f);
+            AimbotCFG::AimbotCFG.Sensitivity = ReadData(ConfigData["Aimbot"], { "Sensitivity" }, 1.0f);
+            AimbotCFG::AimbotCFG.AutoFireMode = ReadData(ConfigData["Aimbot"], { "AutoFireMode" }, 0);
+            AimbotCFG::AimbotCFG.RealTraceLine = ReadData(ConfigData["Aimbot"], { "RealTraceLine" }, true);
+            AimbotCFG::AimbotCFG.PingPrediction = ReadData(ConfigData["Aimbot"], { "PingPrediction" }, true);
+            AimbotCFG::AimbotCFG.PingPredictionAmount = ReadData(ConfigData["Aimbot"], { "PingPredictionAmount" }, 1.0f);
+            AimbotCFG::AimbotCFG.HitboxBasedTargeting = ReadData(ConfigData["Aimbot"], { "HitboxBasedTargeting" }, false);
+            AimbotCFG::AimbotCFG.HitboxPriority = ReadData(ConfigData["Aimbot"], { "HitboxPriority" }, 0);
+            AimbotCFG::AimbotCFG.ResolverEnabled = ReadData(ConfigData["Aimbot"], { "ResolverEnabled" }, false);
+            AimbotCFG::AimbotCFG.ResolverMode = ReadData(ConfigData["Aimbot"], { "ResolverMode" }, 0);
+            AimbotCFG::AimbotCFG.CreateMoveHook = ReadData(ConfigData["Aimbot"], { "CreateMoveHook" }, true);
+            AimbotCFG::AimbotCFG.SilentAimInCreateMove = ReadData(ConfigData["Aimbot"], { "SilentAimInCreateMove" }, true);
+            AimbotCFG::AimbotCFG.TriggerBotInCreateMove = ReadData(ConfigData["Aimbot"], { "TriggerBotInCreateMove" }, false);
+        }
 
         if (ConfigData.contains("Radar"))
         {

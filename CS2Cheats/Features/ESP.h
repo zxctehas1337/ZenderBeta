@@ -15,7 +15,7 @@ namespace ESP
 
 	// Removed WeaponIconSize and related weapon icon logic
 
-	ImVec4 GetBoxRect(const CEntity& Entity, int BoxType)
+	inline ImVec4 GetBoxRect(const CEntity& Entity, int BoxType)
 	{
 		ImVec4 Rect;
 		switch (BoxType)
@@ -33,7 +33,7 @@ namespace ESP
 		return Rect;
 	}
 
-	void RenderPlayerESP(const CEntity& LocalEntity, const CEntity& Entity, ImVec4 Rect, int LocalPlayerControllerIndex, int Index)
+	inline void RenderPlayerESP(const CEntity& LocalEntity, const CEntity& Entity, ImVec4 Rect, int LocalPlayerControllerIndex, int Index)
 	{
 		if (Entity.Pawn.Pos == Vec3(0, 0, 0))
 			return;
@@ -206,14 +206,14 @@ namespace ESP
 		}
 	}
 
-	void DrawPreviewBox(const ImVec2& startPos, const ImVec2& endPos, ImColor boxColor, float rounding, float thickness, bool filled) {
+	inline void DrawPreviewBox(const ImVec2& startPos, const ImVec2& endPos, ImColor boxColor, float rounding, float thickness, bool filled) {
 		if (filled)
 			ImGui::GetWindowDrawList()->AddRectFilled(startPos, endPos, boxColor, rounding, ImDrawCornerFlags_All);
 		else
 			ImGui::GetWindowDrawList()->AddRect(startPos, endPos, boxColor, rounding, ImDrawCornerFlags_All, thickness);
 	}
 
-    void RenderPreview(ImVec2 windowSize)
+    inline void RenderPreview(ImVec2 windowSize)
     {
         if (!ESPConfig::ShowPreview)
             return;
