@@ -150,21 +150,105 @@ namespace RadarCFG
 
 namespace AimbotCFG
 {
-    // LEGIT CONFIG
-    inline struct {
+    // Base struct for all aimbot configs
+    struct AimbotConfigBase {
+        // Main toggles
+        bool Enabled = false;
         bool AimbotEnabled = false;
+        bool TriggerBot = false;
+        bool Aimlock = false;
         bool SilentAim = false;
+        
+        // Aim settings
+        enum AimBone {
+            HEAD = 8,        // Updated for CS2 2025 - head bone
+            NECK = 7,        // neck_0 bone  
+            CHEST_UPPER = 5, // spine_1 bone
+            CHEST_LOWER = 4, // spine_2 bone
+            STOMACH = 3,     // spine_3 bone
+            PELVIS = 2       // pelvis bone
+        };
+        
+        int AimBone = HEAD;
+        float FOV = 15.0f;           // 1-180 degrees
+        float Smooth = 2.0f;         // 0.1-10.0
+        float AimSpeed = 5.0f;       // 1-20
+        float RecoilControl = 0.5f;  // 0-1
+        
+        // Visual settings
+        bool DrawFOVCircle = true;
+        ImColor FOVCircleColor = ImColor(255, 255, 255, 100);
+        float FOVCircleThickness = 1.0f;
+        bool DrawTargetLine = false;
+        ImColor TargetLineColor = ImColor(255, 0, 0, 255);
+        
+        // Safety settings
+        bool VisibleCheck = true;
+        bool FlashCheck = true;
+        bool SmokeCheck = true;
+        bool TeamFilter = true;
+        bool LegitMode = true;
+        
+        // Advanced settings
+        enum TargetPriority {
+            DISTANCE = 0,
+            HEALTH,
+            ANGLE,
+            FOV_PRIORITY
+        };
+        
+        int TargetPriority = DISTANCE;
+        bool Prediction = false;
+        float PredictionScale = 1.0f;
+        bool AntiShake = true;
+        float AntiShakeStrength = 0.5f;
+        
+        // Humanization
+        bool Humanization = true;
+        float RandomFactor = 0.1f;    // 0-1
+        float DelayMin = 0.1f;        // seconds
+        float DelayMax = 0.3f;        // seconds
+        float HumanCurve = 1.0f;      // curve intensity
+        
+        // Trigger bot
+        bool TriggerEnabled = false;
+        float TriggerDelay = 0.0f;    // 0-1 second
+        int TriggerKey = VK_LBUTTON;  // mouse button
+        bool TriggerVisibleCheck = true;
+        
+        // Rage mode
+        bool RageMode = false;
+        float RageFOV = 180.0f;
+        float RageSmooth = 0.1f;
+        bool RageInstant = true;
+        
+        // Legit mode
+        bool LegitModeEnabled = true;
+        float LegitFOV = 10.0f;
+        float LegitSmooth = 5.0f;
+        bool LegitHumanization = true;
+        
+        // Kill delay
+        bool KillDelay = false;
+        float KillDelayTime = 0.5f;   // seconds
+        
+        // Adaptive settings
+        bool AdaptiveFOV = false;
+        float AdaptiveFOVScale = 1.0f;
+        bool AdaptiveSpeed = false;
+        float AdaptiveSpeedScale = 1.0f;
+        
+        // Legacy compatibility
+        bool ToggleMode = false;
+        int AimbotKey = VK_RBUTTON;
         float FOVRadius = 15.0f;
         float FOVRadiusMin = 5.0f;
         float FOVRadiusMax = 30.0f;
         bool ShowFov = true;
         bool DrawAimbotFOV = true;
-        ImU32 FOVCircleColor = ImColor(255, 255, 255, 180);
-        float FOVCircleThickness = 1.0f;
-        bool VisibleCheck = true;
+        ImU32 FOVCircleColorLegacy = ImColor(255, 255, 255, 180);
         bool TeamCheck = true;
         float MaxDistance = 500.0f;
-        int AimBone = 0;
         bool TargetHeadOnly = true;
         bool StopWhenNoHead = true;
         bool SmoothAim = true;
@@ -173,8 +257,7 @@ namespace AimbotCFG
         float RCSStrength = 0.5f;
         float Sensitivity = 1.0f;
         int AutoFireMode = 0;
-        bool TriggerBot = false;
-        int TriggerDelay = 150;
+        // TriggerDelay is already defined in base class as float
         
         // Advanced features
         bool RealTraceLine = true;
@@ -187,85 +270,94 @@ namespace AimbotCFG
         bool CreateMoveHook = false;
         bool SilentAimInCreateMove = false;
         bool TriggerBotInCreateMove = false;
+    };
+    
+    // LEGIT CONFIG
+    inline struct LegitConfig : AimbotConfigBase {
+        // Legit mode inherits all base settings, just override defaults
+        LegitConfig() {
+            AimbotEnabled = false;
+            SilentAim = false;
+            FOVRadius = 15.0f;
+            FOVRadiusMin = 5.0f;
+            FOVRadiusMax = 30.0f;
+            ShowFov = true;
+            DrawAimbotFOV = true;
+            FOVCircleColorLegacy = ImColor(255, 255, 255, 180);
+            FOVCircleThickness = 1.0f;
+            VisibleCheck = true;
+            TeamCheck = true;
+            MaxDistance = 500.0f;
+            AimBone = 0;
+            TargetHeadOnly = true;
+            StopWhenNoHead = true;
+            SmoothAim = true;
+            SmoothValue = 0.85f;
+            RCS = false;
+            RCSStrength = 0.5f;
+            Sensitivity = 1.0f;
+            AutoFireMode = 0;
+            TriggerBot = false;
+            TriggerDelay = 150;
+            
+            // Advanced features
+            RealTraceLine = true;
+            PingPrediction = false;
+            PingPredictionAmount = 0.3f;
+            HitboxBasedTargeting = false;
+            HitboxPriority = 0;
+            ResolverEnabled = false;
+            ResolverMode = 0;
+            CreateMoveHook = false;
+            SilentAimInCreateMove = false;
+            TriggerBotInCreateMove = false;
+        }
     } LegitCFG;
 
     // SEMIRAGE CONFIG
-    inline struct {
-        bool AimbotEnabled = false;
-        bool SilentAim = true;
-        float FOVRadius = 45.0f;
-        float FOVRadiusMin = 20.0f;
-        float FOVRadiusMax = 80.0f;
-        bool ShowFov = true;
-        bool DrawAimbotFOV = true;
-        ImU32 FOVCircleColor = ImColor(255, 200, 0, 180);
-        float FOVCircleThickness = 1.5f;
-        bool VisibleCheck = true;
-        bool TeamCheck = true;
-        float MaxDistance = 1500.0f;
-        int AimBone = 0;
-        bool TargetHeadOnly = false;
-        bool StopWhenNoHead = false;
-        bool SmoothAim = true;
-        float SmoothValue = 0.4f;
-        bool RCS = true;
-        float RCSStrength = 0.8f;
-        float Sensitivity = 1.0f;
-        int AutoFireMode = 1;
-        bool TriggerBot = true;
-        int TriggerDelay = 80;
-        
-        // Advanced features
-        bool RealTraceLine = true;
-        bool PingPrediction = true;
-        float PingPredictionAmount = 0.7f;
-        bool HitboxBasedTargeting = true;
-        int HitboxPriority = 0;
-        bool ResolverEnabled = true;
-        int ResolverMode = 1;
-        bool CreateMoveHook = true;
-        bool SilentAimInCreateMove = true;
-        bool TriggerBotInCreateMove = false;
+    inline struct SemiRageConfig : AimbotConfigBase {
+        // SemiRage mode inherits all base settings, just override defaults
+        SemiRageConfig() {
+            AimbotEnabled = false;
+            SilentAim = true;
+            FOVRadius = 45.0f;
+            FOVRadiusMin = 20.0f;
+            FOVRadiusMax = 80.0f;
+            ShowFov = true;
+            DrawAimbotFOV = true;
+            FOVCircleColorLegacy = ImColor(255, 200, 0, 180);
+            FOVCircleThickness = 1.5f;
+            VisibleCheck = true;
+            TeamCheck = true;
+            MaxDistance = 1500.0f;
+            AimBone = 0;
+            TargetHeadOnly = false;
+            StopWhenNoHead = false;
+            SmoothAim = true;
+            SmoothValue = 0.4f;
+            RCS = true;
+            RCSStrength = 0.8f;
+            Sensitivity = 1.0f;
+            AutoFireMode = 1;
+            TriggerBot = true;
+            TriggerDelay = 80;
+            
+            // Advanced features
+            RealTraceLine = true;
+            PingPrediction = true;
+            PingPredictionAmount = 0.7f;
+            HitboxBasedTargeting = true;
+            HitboxPriority = 0;
+            ResolverEnabled = true;
+            ResolverMode = 1;
+            CreateMoveHook = true;
+            SilentAimInCreateMove = true;
+            TriggerBotInCreateMove = false;
+        }
     } SemiRageCFG;
 
     // RAGE CONFIG
-    inline struct {
-        bool AimbotEnabled = false;
-        bool SilentAim = true;
-        float FOVRadius = 180.0f;
-        float FOVRadiusMin = 90.0f;
-        float FOVRadiusMax = 180.0f;
-        bool ShowFov = false;
-        bool DrawAimbotFOV = false;
-        ImU32 FOVCircleColor = ImColor(255, 0, 0, 180);
-        float FOVCircleThickness = 2.0f;
-        bool VisibleCheck = false;
-        bool TeamCheck = true;
-        float MaxDistance = 10000.0f;
-        int AimBone = 0;
-        bool TargetHeadOnly = false;
-        bool StopWhenNoHead = false;
-        bool SmoothAim = false;
-        float SmoothValue = 0.0f;
-        bool RCS = true;
-        float RCSStrength = 2.0f;
-        float Sensitivity = 1.0f;
-        int AutoFireMode = 2;
-        bool TriggerBot = true;
-        int TriggerDelay = 10;
-        
-        // Advanced features
-        bool RealTraceLine = true;
-        bool PingPrediction = true;
-        float PingPredictionAmount = 1.5f;
-        bool HitboxBasedTargeting = true;
-        int HitboxPriority = 0;
-        bool ResolverEnabled = true;
-        int ResolverMode = 2;
-        bool CreateMoveHook = true;
-        bool SilentAimInCreateMove = true;
-        bool TriggerBotInCreateMove = true;
-        
+    inline struct RageConfig : AimbotConfigBase {
         // RAGE SPECIFIC
         bool ForceHeadshot = true;
         bool IgnoreSmoke = true;
@@ -279,6 +371,45 @@ namespace AimbotCFG
         bool InstantHit = true;
         bool Multipoint = true;
         float MultipointScale = 0.8f;
+        
+        // Rage mode inherits all base settings, just override defaults
+        RageConfig() {
+            AimbotEnabled = false;
+            SilentAim = true;
+            FOVRadius = 180.0f;
+            FOVRadiusMin = 90.0f;
+            FOVRadiusMax = 180.0f;
+            ShowFov = false;
+            DrawAimbotFOV = false;
+            FOVCircleColorLegacy = ImColor(255, 0, 0, 180);
+            FOVCircleThickness = 2.0f;
+            VisibleCheck = false;
+            TeamCheck = true;
+            MaxDistance = 10000.0f;
+            AimBone = 0;
+            TargetHeadOnly = false;
+            StopWhenNoHead = false;
+            SmoothAim = false;
+            SmoothValue = 0.0f;
+            RCS = true;
+            RCSStrength = 2.0f;
+            Sensitivity = 1.0f;
+            AutoFireMode = 2;
+            TriggerBot = true;
+            TriggerDelay = 10;
+            
+            // Advanced features
+            RealTraceLine = true;
+            PingPrediction = true;
+            PingPredictionAmount = 1.5f;
+            HitboxBasedTargeting = true;
+            HitboxPriority = 0;
+            ResolverEnabled = true;
+            ResolverMode = 2;
+            CreateMoveHook = true;
+            SilentAimInCreateMove = true;
+            TriggerBotInCreateMove = true;
+        }
     } RageCFG;
 
     // Current active config
@@ -290,17 +421,17 @@ namespace AimbotCFG
     inline int CurrentConfig = LEGIT;
 
     // Get current config reference
-    inline auto& GetCurrentConfig() {
+    inline AimbotConfigBase* GetCurrentConfig() {
         switch (CurrentConfig) {
-            case LEGIT: return LegitCFG;
-            case SEMIRAGE: return SemiRageCFG;
-            case RAGE: return RageCFG;
-            default: return LegitCFG;
+            case LEGIT: return static_cast<AimbotConfigBase*>(&LegitCFG);
+            case SEMIRAGE: return static_cast<AimbotConfigBase*>(&SemiRageCFG);
+            case RAGE: return static_cast<AimbotConfigBase*>(&RageCFG);
+            default: return static_cast<AimbotConfigBase*>(&LegitCFG);
         }
     }
 
-    // Legacy compatibility
-    inline auto& AimbotCFG = GetCurrentConfig();
+    // Legacy compatibility - use pointer dereference
+    inline auto& AimbotCFG = *GetCurrentConfig();
 }
 
 namespace MiscCFG

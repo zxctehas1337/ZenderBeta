@@ -1,0 +1,225 @@
+Сборка начата в 11:59...
+1>------ Сборка начата: проект: CS2Cheats, Конфигурация: Debug x64 ------
+1>C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(523,5): warning MSB8004: каталог Intermediate заканчивается не косой чертой.  Этот экземпляр сборки добавит косую черту, поскольку она необходима для правильного определения каталога Intermediate.
+1>ConfigMenu.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigMenu.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigMenu.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigMenu.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigMenu.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigMenu.cpp(58,96): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+1>ConfigSaver.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigSaver.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigSaver.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigSaver.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Config/ConfigSaver.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigSaver.cpp(119,67): error C2039: "ToggleMode": не является членом "AimbotCFG::<unnamed-type-LegitCFG>".
+1>    C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(154,19):
+1>     см. объявление "AimbotCFG::<unnamed-type-LegitCFG>"
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigSaver.cpp(120,66): error C2039: "AimbotKey": не является членом "AimbotCFG::<unnamed-type-LegitCFG>".
+1>    C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(154,19):
+1>     см. объявление "AimbotCFG::<unnamed-type-LegitCFG>"
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigSaver.cpp(426,34): error C2039: "ToggleMode": не является членом "AimbotCFG::<unnamed-type-LegitCFG>".
+1>    C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(154,19):
+1>     см. объявление "AimbotCFG::<unnamed-type-LegitCFG>"
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Config\ConfigSaver.cpp(427,34): error C2039: "AimbotKey": не является членом "AimbotCFG::<unnamed-type-LegitCFG>".
+1>    C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(154,19):
+1>     см. объявление "AimbotCFG::<unnamed-type-LegitCFG>"
+1>Cheats.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\SpectatorList.h(64,58): warning C4244: аргумент: преобразование "uintptr_t" в "uint32_t", возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\SoundESP.h(39,83): warning C4267: аргумент: преобразование из "size_t" в "int"; возможна потеря данных
+1>(компиляция исходного файла "Core/Cheats.cpp")
+1>GlobalVars.cpp
+1>GUI.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI.cpp")
+1>GUI_Functions.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Functions.cpp")
+1>GUI_ToolBar.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_ToolBar.cpp")
+1>GUI_Tabs.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Core/GUI_Tabs.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(27,92): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(49,93): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(52,101): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(60,97): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(61,98): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(62,103): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(66,99): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(67,82): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(68,81): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(69,96): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(70,77): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(72,94): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(74,100): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(75,86): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(76,100): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(93,83): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(96,95): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(97,93): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(101,86): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(112,82): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(115,84): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(118,92): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(119,98): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(120,96): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(121,95): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(122,94): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(132,91): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(133,90): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(134,87): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(135,88): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\GUI_Tabs.cpp(136,85): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+1>Render.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Core/Render.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Core/Render.cpp")
+1>Aimbot.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,49): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(135,26): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,64): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Render.h(136,33): warning C4244: инициализация: преобразование "double" в "const float", возможна потеря данных
+1>(компиляция исходного файла "Features/Aimbot.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Aimbot.cpp(1103,14): error C2039: "random_seed": не является членом "CUserCmd".
+1>    C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Aimbot.h(23,8):
+1>     см. объявление "CUserCmd"
+1>Misc.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C3487: "AimbotCFG::<unnamed-type-SemiRageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Misc.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C3487: "AimbotCFG::<unnamed-type-RageCFG> &": все возвращаемые выражения в лямбда-выражении должны иметь один и тот же тип: ранее использовался тип "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Misc.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(296,35): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-SemiRageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Misc.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Core\Config.h(297,31): error C2440: return: невозможно преобразовать "AimbotCFG::<unnamed-type-RageCFG>" в "AimbotCFG::<unnamed-type-LegitCFG> &"
+1>(компиляция исходного файла "Features/Misc.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.h(79,13): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+1>(компиляция исходного файла "Features/Misc.cpp")
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.cpp(808,15): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Misc.cpp(809,13): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>Radar.cpp
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Radar.cpp(9,15): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>C:\Users\h7524\OneDrive\Рабочий стол\Zender\CS2Cheats\Features\Radar.cpp(72,20): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+1>Bone.cpp
+1>Entity.cpp
+1>Game.cpp
+Сборка была отменена.
+========== Прошло 38,381 с ==========

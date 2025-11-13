@@ -70,7 +70,7 @@ void Cheat()
 	{
 		Offset.UpdateOffsets();
 		Log::PreviousLine();
-		Log::Fine("Offsets updated");
+		Log::Fine("Offsets updated with 2025 improvements");
 	}
 	catch (const std::exception& error)
 	{

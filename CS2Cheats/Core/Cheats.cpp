@@ -105,12 +105,17 @@ void Cheats::Run()
 	// render entities
 	HandleEnts(renderEntities, LocalEntity, LocalPlayerControllerIndex, GameRadar);
 
+	// Run aimbot
+	std::vector<CEntity> allEntities;
+	for (const auto& result : renderEntities) {
+		allEntities.push_back(result.entity);
+	}
+	Aimbot::Run(LocalEntity, allEntities);
+	Aimbot::Draw(LocalEntity);
+
 	Visual(LocalEntity);
 	Radar(GameRadar, LocalEntity);
 	MiscFuncs(LocalEntity, renderEntities); // Pass renderEntities
-
-	// Run aimbot visualization (actual aimbot logic runs in CreateMove hook)
-	Aimbot::DrawFOV(LocalEntity);
 
 	// Render Grenade ESP
 	GrenadeESP::RenderGrenadeESP(LocalEntity);

@@ -5,7 +5,7 @@
 namespace Math
 {
     // Calculate angle between two positions
-    Vec3 CalcAngle(const Vec3& src, const Vec3& dst)
+    inline Vec3 CalcAngle(const Vec3& src, const Vec3& dst)
     {
         Vec3 angle;
         Vec3 delta = dst - src;
@@ -19,7 +19,7 @@ namespace Math
     }
 
     // Normalize angles to keep them within valid range
-    void NormalizeAngles(Vec3& angle)
+    inline void NormalizeAngles(Vec3& angle)
     {
         // Normalize pitch
         while (angle.x > 89.0f) angle.x -= 180.0f;
@@ -34,25 +34,25 @@ namespace Math
     }
 
     // Convert degrees to radians
-    float DegToRad(float degrees)
+    inline float DegToRad(float degrees)
     {
         return degrees * (3.14159265358979323846f / 180.0f);
     }
 
     // Convert radians to degrees
-    float RadToDeg(float radians)
+    inline float RadToDeg(float radians)
     {
         return radians * (180.0f / 3.14159265358979323846f);
     }
 
     // Linear interpolation between two values
-    float Lerp(float a, float b, float t)
+    inline float Lerp(float a, float b, float t)
     {
         return a + t * (b - a);
     }
 
     // Clamp value between min and max
-    float Clamp(float value, float min, float max)
+    inline float Clamp(float value, float min, float max)
     {
         if (value < min) return min;
         if (value > max) return max;
@@ -60,13 +60,13 @@ namespace Math
     }
 
     // Calculate distance between two 3D points
-    float Distance(const Vec3& a, const Vec3& b)
+    inline float Distance(const Vec3& a, const Vec3& b)
     {
         return a.DistanceTo(b);
     }
 
     // Check if point is within field of view
-    bool IsInFOV(const Vec3& viewAngle, const Vec3& targetAngle, float fov)
+    inline bool IsInFOV(const Vec3& viewAngle, const Vec3& targetAngle, float fov)
     {
         Vec3 delta = targetAngle - viewAngle;
         NormalizeAngles(delta);

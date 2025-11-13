@@ -1,5 +1,6 @@
 #include "GrenadeESP.h"
 #include "../Helpers/Logger.h"
+#include "../Game/Game.h"
 #include <algorithm>
 #include <cmath>
 
@@ -149,7 +150,7 @@ namespace GrenadeESP
     {
         // Convert 3D position to 2D screen coordinates
         Vec2 screenPos;
-        if (!Render::WorldToScreen(grenade.position, screenPos))
+        if (!gGame.View.WorldToScreen(grenade.position, screenPos))
             return;
 
         ImDrawList* drawList = ImGui::GetBackgroundDrawList();
@@ -217,8 +218,8 @@ namespace GrenadeESP
         
         for (size_t i = 1; i < trajectory.size(); ++i) {
             Vec2 screenPos1, screenPos2;
-            if (Render::WorldToScreen(trajectory[i-1], screenPos1) && 
-                Render::WorldToScreen(trajectory[i], screenPos2)) {
+            if (gGame.View.WorldToScreen(trajectory[i-1], screenPos1) && 
+                gGame.View.WorldToScreen(trajectory[i], screenPos2)) {
                 
                 // Fade trajectory based on distance
                 float alpha = 1.0f - (static_cast<float>(i) / trajectory.size()) * 0.7f;
@@ -242,7 +243,7 @@ namespace GrenadeESP
     void DrawExplosionRadius(const Vec3& position, float radius, const ImColor& color, bool isDangerous)
     {
         Vec2 screenPos;
-        if (!Render::WorldToScreen(position, screenPos))
+        if (!gGame.View.WorldToScreen(position, screenPos))
             return;
 
         ImDrawList* drawList = ImGui::GetBackgroundDrawList();
@@ -265,7 +266,7 @@ namespace GrenadeESP
     void DrawDangerWarning(const Vec3& position, const std::string& type, float timeToExplosion)
     {
         Vec2 screenPos;
-        if (!Render::WorldToScreen(position, screenPos))
+        if (!gGame.View.WorldToScreen(position, screenPos))
             return;
 
         ImDrawList* drawList = ImGui::GetBackgroundDrawList();

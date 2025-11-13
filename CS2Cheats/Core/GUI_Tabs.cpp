@@ -36,8 +36,10 @@ namespace GUI
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered, hoverColor);
             if (ImGui::Button(Text::ESP::HotKey.c_str(), { 75.f, 28.f }))
             {
+                int key = 0;
+                std::string keyName;
                 std::thread([&]() {
-                    KeyMgr::GetPressedKey(ESPConfig::HotKey, &Text::ESP::HotKey);
+                    KeyMgr::GetPressedKey(key, &keyName);
                     }).detach();
             }
             ImGui::PopStyleColor(2);
@@ -55,13 +57,13 @@ namespace GUI
                     Components::AlignRight(165.f);
                     ImGui::SetNextItemWidth(165.f);
                     ImGui::Combo("###BoxType", &ESPConfig::BoxType, "Normal\0Corner\0");
-                    Components::PutSliderFloat(Text::ESP::BoxRounding.c_str(), 15.f, &ESPConfig::BoxRounding, &MinRounding, &MaxRouding, "%.1f");
+                    Components::PutSliderFloat(Text::ESP::BoxRounding.c_str(), 15.f, &ESPConfig::BoxRounding, &MinRounding, &MaxRouding, "%.1f", NULL);
                 }
                 Components::PutSwitch(Text::ESP::HeadBox.c_str(), 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowHeadBox, true, "###HeadBoxCol", reinterpret_cast<float*>(&ESPConfig::HeadBoxColor));
                 Components::PutSwitch(Text::ESP::Skeleton.c_str(), 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowBoneESP, true, "###BoneCol", reinterpret_cast<float*>(&ESPConfig::BoneColor));
                 Components::PutSwitch(Text::ESP::OutOfFOVArrow.c_str(), 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowOutOfFOVArrow, true, "###OutFOVCol", reinterpret_cast<float*>(&ESPConfig::OutOfFOVArrowColor));
                 if(ESPConfig::ShowOutOfFOVArrow)
-                    Components::PutSliderFloat(Text::ESP::OutOfFOVRadius.c_str(), .5f, &ESPConfig::OutOfFOVRadiusFactor, &MinFovFactor, &MaxFovFactor, "%.1f");
+                    Components::PutSliderFloat(Text::ESP::OutOfFOVRadius.c_str(), .5f, &ESPConfig::OutOfFOVRadiusFactor, &MinFovFactor, &MaxFovFactor, "%.1f", NULL);
 
                 Components::PutSwitch(Text::ESP::HealthBar.c_str(), 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowHealthBar);
                 Components::PutSwitch("Armor Bar", 15.f, ImGui::GetFrameHeight() * 1.7, &ESPConfig::ShowArmorBar);
@@ -122,10 +124,10 @@ namespace GUI
                     Components::PutSwitch("Show Grenade Name", 15.f, ImGui::GetFrameHeight() * 1.7, &MiscCFG::ShowGrenadeName);
                     
                     float minDist = 100.0f, maxDist = 1000.0f;
-                    Components::PutSliderFloat("Warning Distance", 10.f, &MiscCFG::GrenadeWarningDistance, &minDist, &maxDist, "%.0f");
+                    Components::PutSliderFloat("Grenade Distance", 10.f, &MiscCFG::GrenadeWarningDistance, &minDist, &maxDist, "%.0f", NULL);
                     
                     float minTime = 1.0f, maxTime = 5.0f;
-                    Components::PutSliderFloat("Warning Time", 10.f, &MiscCFG::GrenadeWarningTime, &minTime, &maxTime, "%.1f");
+                    Components::PutSliderFloat("Warning Time", 10.f, &MiscCFG::GrenadeWarningTime, &minTime, &maxTime, "%.1f", NULL);
                 }
                 
                 // Additional display options
@@ -210,21 +212,75 @@ namespace GUI
         void DrawAimbotTab(ImVec4 primaryColor, ImVec4 secondaryColor)
         {
             ImGui::BeginChild("AimbotContent", ImVec2(0, 0), false, ImGuiWindowFlags_AlwaysUseWindowPadding);
-            ImGui::SetCursorPosY(10.f); // Начинаем сверху
+            ImGui::SetCursorPosY(10.f);
             ImGui::Columns(2, nullptr, false);
             ImGui::SetColumnWidth(0, ImGui::GetContentRegionAvail().x * 0.5f);
+            
+            // Get current config reference
+            auto* config = AimbotCFG::GetCurrentConfig();
+            
+            // === CONFIG MODE SELECTOR ===
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+            ImGui::Text("CONFIG MODE");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            ImGui::TextDisabled("Mode:");
+            ImGui::SameLine();
+            Components::AlignRight(150.f);
+            ImGui::SetNextItemWidth(150.f);
+            const char* configModes[] = { "Legit", "Semi-Rage", "Rage" };
+            if (ImGui::Combo("###ConfigMode", &AimbotCFG::CurrentConfig, configModes, IM_ARRAYSIZE(configModes))) {
+                // Config changed, update reference
+                config = AimbotCFG::GetCurrentConfig();
+            }
+            
+            // Show current mode with color
+            ImGui::TextDisabled("Current:");
+            ImGui::SameLine();
+            switch (AimbotCFG::CurrentConfig) {
+                case AimbotCFG::LEGIT:
+                    ImGui::TextColored(ImVec4(0.2f, 1.0f, 0.2f, 1.0f), "LEGIT MODE");
+                    break;
+                case AimbotCFG::SEMIRAGE:
+                    ImGui::TextColored(ImVec4(1.0f, 0.8f, 0.2f, 1.0f), "SEMI-RAGE MODE");
+                    break;
+                case AimbotCFG::RAGE:
+                    ImGui::TextColored(ImVec4(1.0f, 0.2f, 0.2f, 1.0f), "RAGE MODE");
+                    break;
+            }
+            
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
             
             // === ЛЕВАЯ КОЛОНКА ===
             ImGui::SetCursorPosX(25.f);
             ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("AIMBOT SETTINGS");
+            ImGui::Text("MAIN SETTINGS");
             ImGui::PopStyleColor();
             ImGui::Spacing();
             
-            Components::PutSwitch("Enable Aimbot", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.AimbotEnabled);
-            Components::PutSwitch("Silent Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.SilentAim);
-            Components::PutSwitch("Visible Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.VisibleCheck);
-            Components::PutSwitch("Team Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &MenuConfig::TeamCheck);
+            // Main toggles
+            Components::PutSwitch("Enable Aimbot", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->Enabled);
+            Components::PutSwitch("Auto Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->AimbotEnabled);
+            Components::PutSwitch("Trigger Bot", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->TriggerEnabled);
+            Components::PutSwitch("Aimlock", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->Aimlock);
+            Components::PutSwitch("Silent Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->SilentAim);
+            
+            // Silent Aim specific settings (only show if Silent Aim is enabled)
+            if (config->SilentAim) {
+                ImGui::Indent(20.f);
+                Components::PutSwitch("Rage Mode", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->RageMode);
+                if (config->RageMode) {
+                    Components::PutSwitch("Instant Hit", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->RageInstant);
+                    // Rage FOV slider
+                    float minRageFOV = 90.0f, maxRageFOV = 180.0f;
+                    Components::PutSliderFloat("Rage FOV", 15.f, &config->RageFOV, &minRageFOV, &maxRageFOV, "%.1f°");
+                }
+                ImGui::Unindent(20.f);
+            }
             
             // Разделитель
             ImGui::Spacing();
@@ -233,38 +289,51 @@ namespace GUI
             
             ImGui::SetCursorPosX(25.f);
             ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("TARGETING");
+            ImGui::Text("AIM SETTINGS");
             ImGui::PopStyleColor();
             ImGui::Spacing();
             
-            // Bone selection
+            // Aim bone selection
             ImGui::TextDisabled("Aim Bone:");
             ImGui::SameLine();
             Components::AlignRight(120.f);
             ImGui::SetNextItemWidth(120.f);
-            const char* boneItems[] = { "Head", "Neck", "Chest", "Stomach", "Pelvis", "Auto" };
-            ImGui::Combo("###AimBone", &AimbotCFG::AimbotCFG.AimBone, boneItems, IM_ARRAYSIZE(boneItems));
+            const char* boneItems[] = { "Head", "Neck", "Chest Upper", "Chest Lower", "Stomach", "Pelvis" };
+            ImGui::Combo("###AimBone", &config->AimBone, boneItems, IM_ARRAYSIZE(boneItems));
             
-            Components::PutSwitch("Target Head Only", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.TargetHeadOnly);
-            Components::PutSwitch("Stop When No Head", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.StopWhenNoHead);
-            Components::PutSwitch("Predict Movement", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.PingPrediction);
+            // FOV slider
+            float minFOV = 1.0f, maxFOV = 180.0f;
+            Components::PutSliderFloat("FOV", 15.f, &config->FOV, &minFOV, &maxFOV, "%.1f°");
+            
+            // Smooth slider
+            float minSmooth = 0.1f, maxSmooth = 10.0f;
+            Components::PutSliderFloat("Smooth", 15.f, &config->Smooth, &minSmooth, &maxSmooth, "%.2f");
+            
+            // Speed slider
+            float minSpeed = 1.0f, maxSpeed = 20.0f;
+            Components::PutSliderFloat("Aim Speed", 15.f, &config->AimSpeed, &minSpeed, &maxSpeed, "%.1f");
+            
+            // Recoil control
+            float minRecoil = 0.0f, maxRecoil = 1.0f;
+            Components::PutSliderFloat("Recoil Control", 15.f, &config->RecoilControl, &minRecoil, &maxRecoil, "%.2f");
             
             ImGui::NextColumn();
             
             // === ПРАВАЯ КОЛОНКА ===
-            ImGui::SetCursorPosY(10.f); // Начинаем сверху для правой колонки
+            ImGui::SetCursorPosY(10.f);
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
             ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("AIMING");
+            ImGui::Text("VISUAL SETTINGS");
             ImGui::PopStyleColor();
             ImGui::Spacing();
             
-            Components::PutSwitch("Smooth Aim", 10.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.SmoothAim);
+            // Visual toggles
+            Components::PutSwitch("Draw FOV Circle", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->DrawFOVCircle, true, "###FOVCircleCol", reinterpret_cast<float*>(&config->FOVCircleColor));
+            Components::PutSwitch("Draw Target Line", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->DrawTargetLine, true, "###TargetLineCol", reinterpret_cast<float*>(&config->TargetLineColor));
             
-            if (AimbotCFG::AimbotCFG.SmoothAim) {
-                float minSmooth = 0.0f, maxSmooth = 1.0f;
-                Components::PutSliderFloat("Smooth Value", 10.f, &AimbotCFG::AimbotCFG.SmoothValue, &minSmooth, &maxSmooth, "%.2f");
-            }
+            // FOV circle thickness
+            float minThickness = 0.5f, maxThickness = 5.0f;
+            Components::PutSliderFloat("Circle Thickness", 15.f, &config->FOVCircleThickness, &minThickness, &maxThickness, "%.1f");
             
             // Разделитель
             ImGui::Spacing();
@@ -273,16 +342,16 @@ namespace GUI
             
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
             ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("DISTANCE & FOV");
+            ImGui::Text("SAFETY SETTINGS");
             ImGui::PopStyleColor();
             ImGui::Spacing();
             
-            float minDist = 100.0f, maxDist = 10000.0f;
-            Components::PutSliderFloat("Max Distance", 10.f, &AimbotCFG::AimbotCFG.MaxDistance, &minDist, &maxDist, "%.0f");
-            
-            // FOV Radius slider
-            float minFOV = 10.0f, maxFOV = 180.0f;
-            Components::PutSliderFloat("FOV Radius", 10.f, &AimbotCFG::AimbotCFG.FOVRadius, &minFOV, &maxFOV, "%.1f");
+            // Safety toggles
+            Components::PutSwitch("Visible Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->VisibleCheck);
+            Components::PutSwitch("Flash Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->FlashCheck);
+            Components::PutSwitch("Smoke Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->SmokeCheck);
+            Components::PutSwitch("Team Filter", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->TeamFilter);
+            Components::PutSwitch("Legit Mode", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->LegitMode);
             
             // Разделитель
             ImGui::Spacing();
@@ -291,72 +360,217 @@ namespace GUI
             
             ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
             ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("AUTO FIRE");
+            ImGui::Text("ADVANCED");
             ImGui::PopStyleColor();
             ImGui::Spacing();
             
-            // AutoFire mode selection
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 10.f);
-            ImGui::TextDisabled("Auto Fire Mode:");
+            // Target priority
+            ImGui::TextDisabled("Target Priority:");
             ImGui::SameLine();
             Components::AlignRight(120.f);
             ImGui::SetNextItemWidth(120.f);
-            const char* autoFireItems[] = { "Off", "On Sight", "Auto Aim" };
-            ImGui::Combo("###AutoFireMode", &AimbotCFG::AimbotCFG.AutoFireMode, autoFireItems, IM_ARRAYSIZE(autoFireItems));
+            const char* priorityItems[] = { "Distance", "Health", "Angle", "FOV" };
+            ImGui::Combo("###TargetPriority", &config->TargetPriority, priorityItems, IM_ARRAYSIZE(priorityItems) - 1);
             
-            // Разделитель
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
+            // Advanced toggles
+            Components::PutSwitch("Prediction", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->Prediction);
+            Components::PutSwitch("Anti Shake", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->AntiShake);
+            Components::PutSwitch("Humanization", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->Humanization);
             
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
-            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("TRIGGERBOT");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-            
-            Components::PutSwitch("TriggerBot", 10.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.TriggerBot);
-            if (AimbotCFG::AimbotCFG.TriggerBot) {
-                int minTriggerDelay = 0, maxTriggerDelay = 500;
-                Components::PutSliderInt("Trigger Delay (ms)", 10.f, &AimbotCFG::AimbotCFG.TriggerDelay, &minTriggerDelay, &maxTriggerDelay, "%d");
-            }
-            
-            // Разделитель
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-            
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
-            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("RECOIL CONTROL");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-            
-            Components::PutSwitch("Enable RCS", 10.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.RCS);
-            
-            if (AimbotCFG::AimbotCFG.RCS) {
-                float minRCS = 0.1f, maxRCS = 3.0f;
-                Components::PutSliderFloat("RCS Strength", 10.f, &AimbotCFG::AimbotCFG.RCSStrength, &minRCS, &maxRCS, "%.2f");
-            }
-            
-            // Разделитель
-            ImGui::Spacing();
-            ImGui::Separator();
-            ImGui::Spacing();
-            
-            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
-            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
-            ImGui::Text("VISUALIZATION");
-            ImGui::PopStyleColor();
-            ImGui::Spacing();
-            
-            Components::PutSwitch("Show FOV", 10.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.ShowFov);
-            
-            if (AimbotCFG::AimbotCFG.ShowFov) {
-                Components::PutSwitch("Draw FOV Circle", 10.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &AimbotCFG::AimbotCFG.DrawAimbotFOV, true, "###FOVCircleCol", reinterpret_cast<float*>(&AimbotCFG::AimbotCFG.FOVCircleColor));
+            if (config->Humanization) {
+                float minRandom = 0.0f, maxRandom = 1.0f;
+                Components::PutSliderFloat("Random Factor", 15.f, &config->RandomFactor, &minRandom, &maxRandom, "%.2f");
                 
-                float minThickness = 0.5f, maxThickness = 5.0f;
-                Components::PutSliderFloat("FOV Thickness", 10.f, &AimbotCFG::AimbotCFG.FOVCircleThickness, &minThickness, &maxThickness, "%.1f");
+                float minDelay = 0.0f, maxDelay = 1.0f;
+                Components::PutSliderFloat("Delay Min", 15.f, &config->DelayMin, &minDelay, &maxDelay, "%.2fs");
+                Components::PutSliderFloat("Delay Max", 15.f, &config->DelayMax, &minDelay, &maxDelay, "%.2fs");
+            }
+            
+            // Rage-specific settings
+            if (config->RageMode) {
+                ImGui::Spacing();
+                ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
+                ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.2f, 0.2f, 1.0f)); // Red color for rage
+                ImGui::Text("RAGE SETTINGS");
+                ImGui::PopStyleColor();
+                ImGui::Spacing();
+                
+                // Check if we have rage config
+                if (AimbotCFG::CurrentConfig == AimbotCFG::RAGE) {
+                    auto* rageConfig = static_cast<AimbotCFG::RageConfig*>(config);
+                    Components::PutSwitch("Force Headshot", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->ForceHeadshot);
+                    Components::PutSwitch("Ignore Smoke", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->IgnoreSmoke);
+                    Components::PutSwitch("Ignore Flash", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->IgnoreFlash);
+                    Components::PutSwitch("Auto Wall", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->AutoWall);
+                    Components::PutSwitch("Perfect Silent", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->PerfectSilent);
+                    Components::PutSwitch("No Spread", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->NoSpread);
+                    Components::PutSwitch("Instant Hit", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->InstantHit);
+                    Components::PutSwitch("Multipoint", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &rageConfig->Multipoint);
+                    
+                    // Min damage slider
+                    float minDamage = 1.0f, maxDamage = 100.0f;
+                    Components::PutSliderFloat("Min Damage", 15.f, &rageConfig->MinDamage, &minDamage, &maxDamage, "%.0f HP");
+                    
+                    // Multipoint scale
+                    if (rageConfig->Multipoint) {
+                        float minScale = 0.1f, maxScale = 1.0f;
+                        Components::PutSliderFloat("Multipoint Scale", 15.f, &rageConfig->MultipointScale, &minScale, &maxScale, "%.2f");
+                    }
+                }
+                
+                float minCurve = 0.0f, maxCurve = 2.0f;
+                Components::PutSliderFloat("Human Curve", 15.f, &config->HumanCurve, &minCurve, &maxCurve, "%.1f");
+            }
+            
+            ImGui::Columns(1);
+            
+            // Разделитель
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            // === SPECIAL MODES SECTION ===
+            ImGui::Columns(3, nullptr, false);
+            
+            // RAGE MODE
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 0.2f, 0.2f, 1.0f));
+            ImGui::Text("RAGE MODE");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Enable Rage", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->RageMode);
+            
+            if (config->RageMode) {
+                float minRageFOV = 90.0f, maxRageFOV = 180.0f;
+                Components::PutSliderFloat("Rage FOV", 15.f, &config->RageFOV, &minRageFOV, &maxRageFOV, "%.1f°");
+                
+                float minRageSmooth = 0.1f, maxRageSmooth = 1.0f;
+                Components::PutSliderFloat("Rage Smooth", 15.f, &config->RageSmooth, &minRageSmooth, &maxRageSmooth, "%.2f");
+                
+                Components::PutSwitch("Instant Aim", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->RageInstant);
+            }
+            
+            ImGui::NextColumn();
+            
+            // LEGIT MODE
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.2f, 1.0f, 0.2f, 1.0f));
+            ImGui::Text("LEGIT MODE");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Enable Legit", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->LegitModeEnabled);
+            
+            if (config->LegitModeEnabled) {
+                float minLegitFOV = 5.0f, maxLegitFOV = 30.0f;
+                Components::PutSliderFloat("Legit FOV", 15.f, &config->LegitFOV, &minLegitFOV, &maxLegitFOV, "%.1f°");
+                
+                float minLegitSmooth = 1.0f, maxLegitSmooth = 10.0f;
+                Components::PutSliderFloat("Legit Smooth", 15.f, &config->LegitSmooth, &minLegitSmooth, &maxLegitSmooth, "%.1f");
+                
+                Components::PutSwitch("Legit Humanization", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->LegitHumanization);
+            }
+            
+            ImGui::NextColumn();
+            
+            // ADAPTIVE SETTINGS
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(1.0f, 1.0f, 0.2f, 1.0f));
+            ImGui::Text("ADAPTIVE");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Adaptive FOV", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->AdaptiveFOV);
+            Components::PutSwitch("Adaptive Speed", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->AdaptiveSpeed);
+            
+            if (config->AdaptiveFOV) {
+                float minAdaptFOV = 0.5f, maxAdaptFOV = 2.0f;
+                Components::PutSliderFloat("FOV Scale", 15.f, &config->AdaptiveFOVScale, &minAdaptFOV, &maxAdaptFOV, "%.2f");
+            }
+            
+            if (config->AdaptiveSpeed) {
+                float minAdaptSpeed = 0.5f, maxAdaptSpeed = 2.0f;
+                Components::PutSliderFloat("Speed Scale", 15.f, &config->AdaptiveSpeedScale, &minAdaptSpeed, &maxAdaptSpeed, "%.2f");
+            }
+            
+            ImGui::Columns(1);
+            
+            // Разделитель
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            // === TRIGGER BOT SECTION ===
+            ImGui::Columns(2, nullptr, false);
+            
+            ImGui::SetCursorPosX(25.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+            ImGui::Text("TRIGGER BOT");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Enable Trigger", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->TriggerEnabled);
+            
+            if (config->TriggerEnabled) {
+                float minTriggerDelay = 0.0f, maxTriggerDelay = 1.0f;
+                Components::PutSliderFloat("Trigger Delay", 15.f, &config->TriggerDelay, &minTriggerDelay, &maxTriggerDelay, "%.2fs");
+                
+                ImGui::TextDisabled("Trigger Key:");
+                ImGui::SameLine();
+                Components::AlignRight(120.f);
+                ImGui::SetNextItemWidth(120.f);
+                const char* keyItems[] = { "Left Mouse", "Right Mouse", "Middle Mouse", "X1", "X2" };
+                int keyIndex = 0;
+                switch (config->TriggerKey) {
+                    case VK_LBUTTON: keyIndex = 0; break;
+                    case VK_RBUTTON: keyIndex = 1; break;
+                    case VK_MBUTTON: keyIndex = 2; break;
+                    case VK_XBUTTON1: keyIndex = 3; break;
+                    case VK_XBUTTON2: keyIndex = 4; break;
+                }
+                if (ImGui::Combo("###TriggerKey", &keyIndex, keyItems, IM_ARRAYSIZE(keyItems))) {
+                    switch (keyIndex) {
+                        case 0: config->TriggerKey = VK_LBUTTON; break;
+                        case 1: config->TriggerKey = VK_RBUTTON; break;
+                        case 2: config->TriggerKey = VK_MBUTTON; break;
+                        case 3: config->TriggerKey = VK_XBUTTON1; break;
+                        case 4: config->TriggerKey = VK_XBUTTON2; break;
+                    }
+                }
+                
+                Components::PutSwitch("Visible Check", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->TriggerVisibleCheck);
+            }
+            
+            ImGui::NextColumn();
+            
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+            ImGui::Text("KILL DELAY");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            Components::PutSwitch("Kill Delay", 15.f, static_cast<float>(ImGui::GetFrameHeight() * 1.7), &config->KillDelay);
+            
+            if (config->KillDelay) {
+                float minKillDelay = 0.1f, maxKillDelay = 2.0f;
+                Components::PutSliderFloat("Delay Time", 15.f, &config->KillDelayTime, &minKillDelay, &maxKillDelay, "%.2fs");
+            }
+            
+            // Разделитель
+            ImGui::Spacing();
+            ImGui::Separator();
+            ImGui::Spacing();
+            
+            ImGui::SetCursorPosX(ImGui::GetCursorPosX() + 15.f);
+            ImGui::PushStyleColor(ImGuiCol_Text, primaryColor);
+            ImGui::Text("PREDICTION");
+            ImGui::PopStyleColor();
+            ImGui::Spacing();
+            
+            if (config->Prediction) {
+                float minPrediction = 0.1f, maxPrediction = 2.0f;
+                Components::PutSliderFloat("Prediction Scale", 15.f, &config->PredictionScale, &minPrediction, &maxPrediction, "%.2f");
             }
             
             ImGui::Columns(1);
@@ -432,8 +646,10 @@ namespace GUI
                     ImGui::PushStyleColor(ImGuiCol_ButtonHovered, secondaryColor);
                     if (ImGui::Button("AntiAimKey", { 75.f, 28.f }))
                     {
+                        int key = 0;
+                        std::string keyName;
                         std::thread([&]() {
-                            KeyMgr::GetPressedKey(MiscCFG::AntiAimKey, nullptr);
+                            KeyMgr::GetPressedKey(key, &keyName);
                             }).detach();
                     }
                     ImGui::PopStyleColor(2);
@@ -491,8 +707,10 @@ namespace GUI
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, secondaryColor);
                 if (ImGui::Button("AutoShopKey", { 90.f, 30.f }))
                 {
+                    int key = 0;
+                    std::string keyName;
                     std::thread([&]() {
-                        KeyMgr::GetPressedKey(MiscCFG::AutoShopKey, &Text::Misc::AutoShopKey);
+                        KeyMgr::GetPressedKey(key, &keyName);
                         }).detach();
                 }
                 ImGui::PopStyleColor(2);
@@ -520,8 +738,10 @@ namespace GUI
             ImGui::PushStyleColor(ImGuiCol_ButtonHovered, secondaryColor);
             if (ImGui::Button(Text::Misc::HotKey.c_str(), { 90.f, 30.f }))
             {
+                int key = 0;
+                std::string keyName;
                 std::thread([&]() {
-                    KeyMgr::GetPressedKey(MenuConfig::HotKey, &Text::Misc::HotKey);
+                    KeyMgr::GetPressedKey(key, &keyName);
                     }).detach();
             }
             ImGui::PopStyleColor(2);

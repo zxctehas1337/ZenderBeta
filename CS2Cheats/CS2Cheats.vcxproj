@@ -109,6 +109,7 @@
     <ClInclude Include="Core\Render.h" />
     <ClInclude Include="Features\Aimbot.h" />
     <ClInclude Include="Features\BombTimer.h" />
+    <ClInclude Include="Features\GrenadeEsp.h" />
     <ClInclude Include="Features\ESP.h" />
     <ClInclude Include="Features\Misc.h" />
     <ClInclude Include="Features\Radar.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="Core\GUI_Tabs.cpp" />
     <ClCompile Include="Core\Render.cpp" />
     <ClCompile Include="Features\Aimbot.cpp" />
+    <ClCompile Include="Features\GrenadeEsp.cpp" />
     <ClCompile Include="Features\Misc.cpp" />
     <ClCompile Include="Features\Radar.cpp" />
     <ClCompile Include="Game\Bone.cpp" />

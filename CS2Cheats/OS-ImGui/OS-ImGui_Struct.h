@@ -77,6 +77,7 @@ public:
 public:
 	Vec3() :x(0.f), y(0.f), z(0.f) {}
 	Vec3(float x_, float y_, float z_) :x(x_), y(y_), z(z_) {}
+	Vec3(const Vec2& vec2) :x(vec2.x), y(vec2.y), z(0.0f) {}
 	Vec3 operator+(Vec3 Vec3_)
 	{
 		return { x + Vec3_.x,y + Vec3_.y,z + Vec3_.z };
